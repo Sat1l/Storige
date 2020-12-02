@@ -1,0 +1,606 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		639F782325771C95007FFCED /* StorigeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639F782225771C95007FFCED /* StorigeApp.swift */; };
+		639F782525771C95007FFCED /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639F782425771C95007FFCED /* ContentView.swift */; };
+		639F782725771C96007FFCED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 639F782625771C96007FFCED /* Assets.xcassets */; };
+		639F782A25771C96007FFCED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 639F782925771C96007FFCED /* Preview Assets.xcassets */; };
+		639F782C25771C96007FFCED /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639F782B25771C96007FFCED /* Persistence.swift */; };
+		639F782F25771C96007FFCED /* Storige.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 639F782D25771C96007FFCED /* Storige.xcdatamodeld */; };
+		639F783A25771C96007FFCED /* StorigeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639F783925771C96007FFCED /* StorigeTests.swift */; };
+		639F784525771C96007FFCED /* StorigeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639F784425771C96007FFCED /* StorigeUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		639F783625771C96007FFCED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 639F781725771C95007FFCED /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 639F781E25771C95007FFCED;
+			remoteInfo = Storige;
+		};
+		639F784125771C96007FFCED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 639F781725771C95007FFCED /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 639F781E25771C95007FFCED;
+			remoteInfo = Storige;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		639F781F25771C95007FFCED /* Storige.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Storige.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		639F782225771C95007FFCED /* StorigeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorigeApp.swift; sourceTree = "<group>"; };
+		639F782425771C95007FFCED /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		639F782625771C96007FFCED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		639F782925771C96007FFCED /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		639F782B25771C96007FFCED /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		639F782E25771C96007FFCED /* Storige.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Storige.xcdatamodel; sourceTree = "<group>"; };
+		639F783025771C96007FFCED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		639F783525771C96007FFCED /* StorigeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StorigeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		639F783925771C96007FFCED /* StorigeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorigeTests.swift; sourceTree = "<group>"; };
+		639F783B25771C96007FFCED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		639F784025771C96007FFCED /* StorigeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StorigeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		639F784425771C96007FFCED /* StorigeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorigeUITests.swift; sourceTree = "<group>"; };
+		639F784625771C96007FFCED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		639F781C25771C95007FFCED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		639F783225771C96007FFCED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		639F783D25771C96007FFCED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		639F781625771C95007FFCED = {
+			isa = PBXGroup;
+			children = (
+				639F782125771C95007FFCED /* Storige */,
+				639F783825771C96007FFCED /* StorigeTests */,
+				639F784325771C96007FFCED /* StorigeUITests */,
+				639F782025771C95007FFCED /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		639F782025771C95007FFCED /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				639F781F25771C95007FFCED /* Storige.app */,
+				639F783525771C96007FFCED /* StorigeTests.xctest */,
+				639F784025771C96007FFCED /* StorigeUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		639F782125771C95007FFCED /* Storige */ = {
+			isa = PBXGroup;
+			children = (
+				639F782225771C95007FFCED /* StorigeApp.swift */,
+				639F782425771C95007FFCED /* ContentView.swift */,
+				639F782625771C96007FFCED /* Assets.xcassets */,
+				639F782B25771C96007FFCED /* Persistence.swift */,
+				639F783025771C96007FFCED /* Info.plist */,
+				639F782D25771C96007FFCED /* Storige.xcdatamodeld */,
+				639F782825771C96007FFCED /* Preview Content */,
+			);
+			path = Storige;
+			sourceTree = "<group>";
+		};
+		639F782825771C96007FFCED /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				639F782925771C96007FFCED /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		639F783825771C96007FFCED /* StorigeTests */ = {
+			isa = PBXGroup;
+			children = (
+				639F783925771C96007FFCED /* StorigeTests.swift */,
+				639F783B25771C96007FFCED /* Info.plist */,
+			);
+			path = StorigeTests;
+			sourceTree = "<group>";
+		};
+		639F784325771C96007FFCED /* StorigeUITests */ = {
+			isa = PBXGroup;
+			children = (
+				639F784425771C96007FFCED /* StorigeUITests.swift */,
+				639F784625771C96007FFCED /* Info.plist */,
+			);
+			path = StorigeUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		639F781E25771C95007FFCED /* Storige */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 639F784925771C96007FFCED /* Build configuration list for PBXNativeTarget "Storige" */;
+			buildPhases = (
+				639F781B25771C95007FFCED /* Sources */,
+				639F781C25771C95007FFCED /* Frameworks */,
+				639F781D25771C95007FFCED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Storige;
+			productName = Storige;
+			productReference = 639F781F25771C95007FFCED /* Storige.app */;
+			productType = "com.apple.product-type.application";
+		};
+		639F783425771C96007FFCED /* StorigeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 639F784C25771C96007FFCED /* Build configuration list for PBXNativeTarget "StorigeTests" */;
+			buildPhases = (
+				639F783125771C96007FFCED /* Sources */,
+				639F783225771C96007FFCED /* Frameworks */,
+				639F783325771C96007FFCED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				639F783725771C96007FFCED /* PBXTargetDependency */,
+			);
+			name = StorigeTests;
+			productName = StorigeTests;
+			productReference = 639F783525771C96007FFCED /* StorigeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		639F783F25771C96007FFCED /* StorigeUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 639F784F25771C96007FFCED /* Build configuration list for PBXNativeTarget "StorigeUITests" */;
+			buildPhases = (
+				639F783C25771C96007FFCED /* Sources */,
+				639F783D25771C96007FFCED /* Frameworks */,
+				639F783E25771C96007FFCED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				639F784225771C96007FFCED /* PBXTargetDependency */,
+			);
+			name = StorigeUITests;
+			productName = StorigeUITests;
+			productReference = 639F784025771C96007FFCED /* StorigeUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		639F781725771C95007FFCED /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1210;
+				LastUpgradeCheck = 1210;
+				TargetAttributes = {
+					639F781E25771C95007FFCED = {
+						CreatedOnToolsVersion = 12.1;
+					};
+					639F783425771C96007FFCED = {
+						CreatedOnToolsVersion = 12.1;
+						TestTargetID = 639F781E25771C95007FFCED;
+					};
+					639F783F25771C96007FFCED = {
+						CreatedOnToolsVersion = 12.1;
+						TestTargetID = 639F781E25771C95007FFCED;
+					};
+				};
+			};
+			buildConfigurationList = 639F781A25771C95007FFCED /* Build configuration list for PBXProject "Storige" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 639F781625771C95007FFCED;
+			productRefGroup = 639F782025771C95007FFCED /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				639F781E25771C95007FFCED /* Storige */,
+				639F783425771C96007FFCED /* StorigeTests */,
+				639F783F25771C96007FFCED /* StorigeUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		639F781D25771C95007FFCED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				639F782A25771C96007FFCED /* Preview Assets.xcassets in Resources */,
+				639F782725771C96007FFCED /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		639F783325771C96007FFCED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		639F783E25771C96007FFCED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		639F781B25771C95007FFCED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				639F782C25771C96007FFCED /* Persistence.swift in Sources */,
+				639F782F25771C96007FFCED /* Storige.xcdatamodeld in Sources */,
+				639F782525771C95007FFCED /* ContentView.swift in Sources */,
+				639F782325771C95007FFCED /* StorigeApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		639F783125771C96007FFCED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				639F783A25771C96007FFCED /* StorigeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		639F783C25771C96007FFCED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				639F784525771C96007FFCED /* StorigeUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		639F783725771C96007FFCED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 639F781E25771C95007FFCED /* Storige */;
+			targetProxy = 639F783625771C96007FFCED /* PBXContainerItemProxy */;
+		};
+		639F784225771C96007FFCED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 639F781E25771C95007FFCED /* Storige */;
+			targetProxy = 639F784125771C96007FFCED /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		639F784725771C96007FFCED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		639F784825771C96007FFCED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		639F784A25771C96007FFCED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"Storige/Preview Content\"";
+				DEVELOPMENT_TEAM = K6B8WUR8TL;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Storige/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Satil.Storige;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		639F784B25771C96007FFCED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"Storige/Preview Content\"";
+				DEVELOPMENT_TEAM = K6B8WUR8TL;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Storige/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Satil.Storige;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		639F784D25771C96007FFCED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = K6B8WUR8TL;
+				INFOPLIST_FILE = StorigeTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Satil.StorigeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Storige.app/Storige";
+			};
+			name = Debug;
+		};
+		639F784E25771C96007FFCED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = K6B8WUR8TL;
+				INFOPLIST_FILE = StorigeTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Satil.StorigeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Storige.app/Storige";
+			};
+			name = Release;
+		};
+		639F785025771C96007FFCED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = K6B8WUR8TL;
+				INFOPLIST_FILE = StorigeUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Satil.StorigeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Storige;
+			};
+			name = Debug;
+		};
+		639F785125771C96007FFCED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = K6B8WUR8TL;
+				INFOPLIST_FILE = StorigeUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Satil.StorigeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Storige;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		639F781A25771C95007FFCED /* Build configuration list for PBXProject "Storige" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				639F784725771C96007FFCED /* Debug */,
+				639F784825771C96007FFCED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		639F784925771C96007FFCED /* Build configuration list for PBXNativeTarget "Storige" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				639F784A25771C96007FFCED /* Debug */,
+				639F784B25771C96007FFCED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		639F784C25771C96007FFCED /* Build configuration list for PBXNativeTarget "StorigeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				639F784D25771C96007FFCED /* Debug */,
+				639F784E25771C96007FFCED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		639F784F25771C96007FFCED /* Build configuration list for PBXNativeTarget "StorigeUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				639F785025771C96007FFCED /* Debug */,
+				639F785125771C96007FFCED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		639F782D25771C96007FFCED /* Storige.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				639F782E25771C96007FFCED /* Storige.xcdatamodel */,
+			);
+			currentVersion = 639F782E25771C96007FFCED /* Storige.xcdatamodel */;
+			path = Storige.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 639F781725771C95007FFCED /* Project object */;
+}
