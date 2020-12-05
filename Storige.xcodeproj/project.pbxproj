@@ -3,18 +3,20 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		639F782325771C95007FFCED /* StorigeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639F782225771C95007FFCED /* StorigeApp.swift */; };
+		4D9198CE8ACEC931D6B81B45 /* Pods_Storige.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2D052CE3728F48A734C99AD /* Pods_Storige.framework */; };
+		63843783257A1E920016DB0B /* NewFolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63843782257A1E920016DB0B /* NewFolderView.swift */; };
 		639F782525771C95007FFCED /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639F782425771C95007FFCED /* ContentView.swift */; };
 		639F782725771C96007FFCED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 639F782625771C96007FFCED /* Assets.xcassets */; };
 		639F782A25771C96007FFCED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 639F782925771C96007FFCED /* Preview Assets.xcassets */; };
-		639F782C25771C96007FFCED /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639F782B25771C96007FFCED /* Persistence.swift */; };
-		639F782F25771C96007FFCED /* Storige.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 639F782D25771C96007FFCED /* Storige.xcdatamodeld */; };
 		639F783A25771C96007FFCED /* StorigeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639F783925771C96007FFCED /* StorigeTests.swift */; };
 		639F784525771C96007FFCED /* StorigeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639F784425771C96007FFCED /* StorigeUITests.swift */; };
+		63F17E662578ACCB00D0E121 /* ViewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F17E652578ACCB00D0E121 /* ViewPage.swift */; };
+		63F17E6E2578B16C00D0E121 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F17E6D2578B16C00D0E121 /* SettingsPage.swift */; };
+		63F17E8C2578CF4100D0E121 /* StorigeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F17E8B2578CF4100D0E121 /* StorigeApp.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,13 +37,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5042E54DA78775C4FC176F39 /* Pods-Storige.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Storige.debug.xcconfig"; path = "Target Support Files/Pods-Storige/Pods-Storige.debug.xcconfig"; sourceTree = "<group>"; };
+		63843782257A1E920016DB0B /* NewFolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFolderView.swift; sourceTree = "<group>"; };
 		639F781F25771C95007FFCED /* Storige.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Storige.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		639F782225771C95007FFCED /* StorigeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorigeApp.swift; sourceTree = "<group>"; };
 		639F782425771C95007FFCED /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		639F782625771C96007FFCED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		639F782925771C96007FFCED /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		639F782B25771C96007FFCED /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
-		639F782E25771C96007FFCED /* Storige.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Storige.xcdatamodel; sourceTree = "<group>"; };
 		639F783025771C96007FFCED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		639F783525771C96007FFCED /* StorigeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StorigeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		639F783925771C96007FFCED /* StorigeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorigeTests.swift; sourceTree = "<group>"; };
@@ -49,6 +50,12 @@
 		639F784025771C96007FFCED /* StorigeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StorigeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		639F784425771C96007FFCED /* StorigeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorigeUITests.swift; sourceTree = "<group>"; };
 		639F784625771C96007FFCED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		63C6D050257A29A50055FF18 /* Storige.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Storige.entitlements; sourceTree = "<group>"; };
+		63F17E652578ACCB00D0E121 /* ViewPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPage.swift; sourceTree = "<group>"; };
+		63F17E6D2578B16C00D0E121 /* SettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
+		63F17E8B2578CF4100D0E121 /* StorigeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorigeApp.swift; sourceTree = "<group>"; };
+		C2D052CE3728F48A734C99AD /* Pods_Storige.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Storige.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCB815A5F0989E53136840E3 /* Pods-Storige.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Storige.release.xcconfig"; path = "Target Support Files/Pods-Storige/Pods-Storige.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D9198CE8ACEC931D6B81B45 /* Pods_Storige.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +91,8 @@
 				639F783825771C96007FFCED /* StorigeTests */,
 				639F784325771C96007FFCED /* StorigeUITests */,
 				639F782025771C95007FFCED /* Products */,
+				E5D3C2E3AEA8E0E9B42A7496 /* Pods */,
+				6A24C799D76BE21AE6F4C9CD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,12 +109,14 @@
 		639F782125771C95007FFCED /* Storige */ = {
 			isa = PBXGroup;
 			children = (
-				639F782225771C95007FFCED /* StorigeApp.swift */,
+				63F17E8B2578CF4100D0E121 /* StorigeApp.swift */,
 				639F782425771C95007FFCED /* ContentView.swift */,
+				63F17E652578ACCB00D0E121 /* ViewPage.swift */,
+				63843782257A1E920016DB0B /* NewFolderView.swift */,
+				63F17E6D2578B16C00D0E121 /* SettingsPage.swift */,
 				639F782625771C96007FFCED /* Assets.xcassets */,
-				639F782B25771C96007FFCED /* Persistence.swift */,
 				639F783025771C96007FFCED /* Info.plist */,
-				639F782D25771C96007FFCED /* Storige.xcdatamodeld */,
+				63C6D050257A29A50055FF18 /* Storige.entitlements */,
 				639F782825771C96007FFCED /* Preview Content */,
 			);
 			path = Storige;
@@ -136,6 +148,23 @@
 			path = StorigeUITests;
 			sourceTree = "<group>";
 		};
+		6A24C799D76BE21AE6F4C9CD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C2D052CE3728F48A734C99AD /* Pods_Storige.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E5D3C2E3AEA8E0E9B42A7496 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5042E54DA78775C4FC176F39 /* Pods-Storige.debug.xcconfig */,
+				FCB815A5F0989E53136840E3 /* Pods-Storige.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,9 +172,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 639F784925771C96007FFCED /* Build configuration list for PBXNativeTarget "Storige" */;
 			buildPhases = (
+				709F2755562D50BF5CF031D9 /* [CP] Check Pods Manifest.lock */,
 				639F781B25771C95007FFCED /* Sources */,
 				639F781C25771C95007FFCED /* Frameworks */,
 				639F781D25771C95007FFCED /* Resources */,
+				61D8DAAF2598B1E18E8647FB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -260,15 +291,58 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		61D8DAAF2598B1E18E8647FB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Storige/Pods-Storige-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Storige/Pods-Storige-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Storige/Pods-Storige-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		709F2755562D50BF5CF031D9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Storige-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		639F781B25771C95007FFCED /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				639F782C25771C96007FFCED /* Persistence.swift in Sources */,
-				639F782F25771C96007FFCED /* Storige.xcdatamodeld in Sources */,
+				63843783257A1E920016DB0B /* NewFolderView.swift in Sources */,
+				63F17E8C2578CF4100D0E121 /* StorigeApp.swift in Sources */,
+				63F17E662578ACCB00D0E121 /* ViewPage.swift in Sources */,
+				63F17E6E2578B16C00D0E121 /* SettingsPage.swift in Sources */,
 				639F782525771C95007FFCED /* ContentView.swift in Sources */,
-				639F782325771C95007FFCED /* StorigeApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,9 +496,11 @@
 		};
 		639F784A25771C96007FFCED /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5042E54DA78775C4FC176F39 /* Pods-Storige.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Storige/Storige.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Storige/Preview Content\"";
 				DEVELOPMENT_TEAM = K6B8WUR8TL;
@@ -437,6 +513,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Satil.Storige;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -444,9 +521,11 @@
 		};
 		639F784B25771C96007FFCED /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FCB815A5F0989E53136840E3 /* Pods-Storige.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Storige/Storige.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Storige/Preview Content\"";
 				DEVELOPMENT_TEAM = K6B8WUR8TL;
@@ -459,6 +538,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Satil.Storige;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -588,19 +668,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		639F782D25771C96007FFCED /* Storige.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				639F782E25771C96007FFCED /* Storige.xcdatamodel */,
-			);
-			currentVersion = 639F782E25771C96007FFCED /* Storige.xcdatamodel */;
-			path = Storige.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 639F781725771C95007FFCED /* Project object */;
 }
