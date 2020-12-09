@@ -6,12 +6,11 @@
 //
 
 import SwiftUI
-import RealmSwift
 
 struct ContentView: View {
     @State var selected = 0
     var body: some View {
-        TabView(selection: $selected){
+    TabView(selection: $selected){
             ViewPage().tabItem {
                 Image(systemName: "shippingbox.fill")
                 Text("Обзор")
@@ -20,6 +19,7 @@ struct ContentView: View {
                 Image(systemName: "gear")
                 Text("Настройки")
             }.tag(1)
+
         }
         
     }
