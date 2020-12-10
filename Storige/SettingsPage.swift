@@ -14,6 +14,7 @@ struct SettingsPage: View
     @State var result: Result<MFMailComposeResult, Error>? = nil
     @State var isShowingMailView = false
     @State private var showShareSheet = false
+    @State var showSortSheet = false
     var body: some View
     {
         NavigationView

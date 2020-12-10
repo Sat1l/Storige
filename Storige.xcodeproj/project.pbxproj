@@ -12,6 +12,7 @@
 		630C3B7B257D0A53009775F0 /* SortView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C3B7A257D0A53009775F0 /* SortView.swift */; };
 		632A07F8257F9E6C00F89AE4 /* NewItemSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632A07F7257F9E6C00F89AE4 /* NewItemSheet.swift */; };
 		634561D5257F23DC0056EE83 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634561D4257F23DC0056EE83 /* Persistence.swift */; };
+		636F09A92580E9F20050E583 /* QrCodeGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636F099D2580E9ED0050E583 /* QrCodeGen.swift */; };
 		639F782525771C95007FFCED /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639F782425771C95007FFCED /* ContentView.swift */; };
 		639F782725771C96007FFCED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 639F782625771C96007FFCED /* Assets.xcassets */; };
 		639F782A25771C96007FFCED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 639F782925771C96007FFCED /* Preview Assets.xcassets */; };
@@ -46,6 +47,7 @@
 		630C3B7A257D0A53009775F0 /* SortView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortView.swift; sourceTree = "<group>"; };
 		632A07F7257F9E6C00F89AE4 /* NewItemSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItemSheet.swift; sourceTree = "<group>"; };
 		634561D4257F23DC0056EE83 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		636F099D2580E9ED0050E583 /* QrCodeGen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCodeGen.swift; sourceTree = "<group>"; };
 		639F781F25771C95007FFCED /* Storige.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Storige.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		639F782425771C95007FFCED /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		639F782625771C96007FFCED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				630C3B52257CCE1D009775F0 /* MailView.swift */,
 				630C3B5C257CE41A009775F0 /* ShareSheet.swift */,
 				63F17E652578ACCB00D0E121 /* ViewPage.swift */,
+				636F099D2580E9ED0050E583 /* QrCodeGen.swift */,
 				632A07F7257F9E6C00F89AE4 /* NewItemSheet.swift */,
 				639F783025771C96007FFCED /* Info.plist */,
 				634561D4257F23DC0056EE83 /* Persistence.swift */,
@@ -295,6 +298,7 @@
 				63F17E8C2578CF4100D0E121 /* StorigeApp.swift in Sources */,
 				630C3B7B257D0A53009775F0 /* SortView.swift in Sources */,
 				632A07F8257F9E6C00F89AE4 /* NewItemSheet.swift in Sources */,
+				636F09A92580E9F20050E583 /* QrCodeGen.swift in Sources */,
 				63F17E662578ACCB00D0E121 /* ViewPage.swift in Sources */,
 				63F17E6E2578B16C00D0E121 /* SettingsPage.swift in Sources */,
 				639F782525771C95007FFCED /* ContentView.swift in Sources */,
