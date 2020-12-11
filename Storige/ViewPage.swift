@@ -24,12 +24,12 @@ struct ViewPage: View//
         NavigationView{//
             List{
                 ForEach(items) { Item in
-                    NavigationLink(destination: QrCodeGen(uuid: Item.itemid!, itemSerial: Item.serialNum!, itemAmount: Item.amount!) .navigationBarTitle("Детали"))
+                    NavigationLink(destination: QrCodeGen(uuid: Item.itemid!, itemSerial: Item.serialNum!, itemAmount: Item.amount) .navigationBarTitle("Детали"))
                     {
                     VStack(alignment: .leading){
                         Text("\(Item.serialNum ?? "")")
                             .font(.headline)
-                        Text("Кол-во: \(Item.amount ?? "1")")
+                        Text("Кол-во: \(Item.amount)")
                             .font(.subheadline)
                         Text("UUID: \(Item.itemid!)")
                             .font(.subheadline)

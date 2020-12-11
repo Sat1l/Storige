@@ -15,10 +15,14 @@ struct ContentView: View {
                 Image(systemName: "shippingbox.fill")
                 Text("Обзор")
             }.tag(0)
+            CheckOutPage().tabItem {
+                Image(systemName: "qrcode.viewfinder")
+                Text("Чек-аут")
+            }.tag(1)
             SettingsPage().tabItem {
                 Image(systemName: "gear")
                 Text("Настройки")
-            }.tag(1)
+            }.tag(2)
 
         }
         

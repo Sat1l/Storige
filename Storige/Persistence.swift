@@ -15,7 +15,7 @@ struct PersistenceController {
         let viewContext = result.container.viewContext
         for _ in 0..<10 {
             let newItem = Item(context: viewContext)
-            newItem.amount = String()
+            newItem.amount = Int16()
             newItem.serialNum = String()
             newItem.itemid = UUID()
             newItem.creationDate = Date()

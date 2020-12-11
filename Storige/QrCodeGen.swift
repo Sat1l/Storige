@@ -13,7 +13,7 @@ struct QrCodeGen : View {
     let filter = CIFilter.qrCodeGenerator()
     var uuid: UUID
     var itemSerial: String
-    var itemAmount: String
+    var itemAmount: Int16
     var uuidString: String {return uuid.uuidString}
     var body : some View {
         Form{

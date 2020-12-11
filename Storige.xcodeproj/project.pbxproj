@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,6 +18,8 @@
 		639F782A25771C96007FFCED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 639F782925771C96007FFCED /* Preview Assets.xcassets */; };
 		639F783A25771C96007FFCED /* StorigeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639F783925771C96007FFCED /* StorigeTests.swift */; };
 		639F784525771C96007FFCED /* StorigeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639F784425771C96007FFCED /* StorigeUITests.swift */; };
+		63B5931B25824ACF001697B4 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 63B5931A25824ACF001697B4 /* CodeScanner */; };
+		63B593202582F36E001697B4 /* CheckOutPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B5931F2582F36E001697B4 /* CheckOutPage.swift */; };
 		63D75CAC257E094D0037B46E /* Storige.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 63D75CAA257E094D0037B46E /* Storige.xcdatamodeld */; };
 		63F17E662578ACCB00D0E121 /* ViewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F17E652578ACCB00D0E121 /* ViewPage.swift */; };
 		63F17E6E2578B16C00D0E121 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F17E6D2578B16C00D0E121 /* SettingsPage.swift */; };
@@ -59,6 +61,7 @@
 		639F784025771C96007FFCED /* StorigeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StorigeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		639F784425771C96007FFCED /* StorigeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorigeUITests.swift; sourceTree = "<group>"; };
 		639F784625771C96007FFCED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		63B5931F2582F36E001697B4 /* CheckOutPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckOutPage.swift; sourceTree = "<group>"; };
 		63C6D050257A29A50055FF18 /* Storige.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Storige.entitlements; sourceTree = "<group>"; };
 		63D75CAB257E094D0037B46E /* StorigeData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StorigeData.xcdatamodel; sourceTree = "<group>"; };
 		63F17E652578ACCB00D0E121 /* ViewPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPage.swift; sourceTree = "<group>"; };
@@ -71,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63B5931B25824ACF001697B4 /* CodeScanner in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,6 +119,7 @@
 			children = (
 				63F17E8B2578CF4100D0E121 /* StorigeApp.swift */,
 				639F782425771C95007FFCED /* ContentView.swift */,
+				63B5931F2582F36E001697B4 /* CheckOutPage.swift */,
 				63F17E6D2578B16C00D0E121 /* SettingsPage.swift */,
 				630C3B7A257D0A53009775F0 /* SortView.swift */,
 				630C3B52257CCE1D009775F0 /* MailView.swift */,
@@ -176,6 +181,7 @@
 			);
 			name = Storige;
 			packageProductDependencies = (
+				63B5931A25824ACF001697B4 /* CodeScanner */,
 			);
 			productName = Storige;
 			productReference = 639F781F25771C95007FFCED /* Storige.app */;
@@ -249,6 +255,7 @@
 			);
 			mainGroup = 639F781625771C95007FFCED;
 			packageReferences = (
+				63B5931925824ACF001697B4 /* XCRemoteSwiftPackageReference "CodeScanner" */,
 			);
 			productRefGroup = 639F782025771C95007FFCED /* Products */;
 			projectDirPath = "";
@@ -296,6 +303,7 @@
 				63D75CAC257E094D0037B46E /* Storige.xcdatamodeld in Sources */,
 				630C3B53257CCE1D009775F0 /* MailView.swift in Sources */,
 				63F17E8C2578CF4100D0E121 /* StorigeApp.swift in Sources */,
+				63B593202582F36E001697B4 /* CheckOutPage.swift in Sources */,
 				630C3B7B257D0A53009775F0 /* SortView.swift in Sources */,
 				632A07F8257F9E6C00F89AE4 /* NewItemSheet.swift in Sources */,
 				636F09A92580E9F20050E583 /* QrCodeGen.swift in Sources */,
@@ -626,6 +634,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		63B5931925824ACF001697B4 /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/CodeScanner";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.7;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		63B5931A25824ACF001697B4 /* CodeScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 63B5931925824ACF001697B4 /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			productName = CodeScanner;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		63D75CAA257E094D0037B46E /* Storige.xcdatamodeld */ = {
