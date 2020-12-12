@@ -30,9 +30,8 @@ struct NewItemSheet: View
                     {
                         newValue in
                         let filtered = newValue.filter { "0123456789".contains($0) }
-                        if filtered != newValue {
-                        self.amount = filtered}
-                        }
+                        if filtered != newValue {self.amount = filtered}
+                    }
                 .navigationBarItems(trailing: Button(action: {
                 let newItem = Item(context: viewContext)
                 newItem.serialNum = self.serialNum

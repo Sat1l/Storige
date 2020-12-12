@@ -17,7 +17,7 @@ struct ContentView: View {
             }.tag(0)
             CheckOutPage().tabItem {
                 Image(systemName: "qrcode.viewfinder")
-                Text("Чек-аут")
+                Text("Сканер")
             }.tag(1)
             SettingsPage().tabItem {
                 Image(systemName: "gear")

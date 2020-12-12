@@ -15,7 +15,7 @@ struct ViewPage: View//
     @State var selected = 0
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(entity: Item.entity(), sortDescriptors: [
-        NSSortDescriptor(keyPath: \Item.amount, ascending: true)
+        NSSortDescriptor(keyPath: \Item.serialNum, ascending: true)
     ])
     var items: FetchedResults<Item>
     
