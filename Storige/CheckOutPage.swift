@@ -10,17 +10,18 @@ import CodeScanner
 import CoreData
 
 struct CheckOutPage: View {
-    @State private var showingAlert1 = false
-    @State private var showingAlert2 = false
+    @State var showFoundItemSheet = false
+    @State var showingActionSheet = false
+    @State var nameToPass: String = ""
+    @State var amountToPass: Int16 = 0
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(entity: Item.entity(), sortDescriptors: [
         NSSortDescriptor(keyPath: \Item.itemid, ascending: true)
     ])
     var items: FetchedResults<Item>
     var body: some View {
-        ZStack{
-            VStack{
-                ZStack{
+
+        ZStack{VStack{ZStack{
                 RoundedRectangle(cornerRadius: 15)
                     .frame(width: 280, height: 40, alignment: .center)
                 Text("найдите код для сканирования")
@@ -31,35 +32,31 @@ struct CheckOutPage: View {
             }
         CodeScannerView(codeTypes: [.qr], simulatedData: "Paul Hudson") { result in
             switch result {
-            case .success(var code):
+            case .success(let code):
                 print(code)
-                var uuid = UUID(uuidString: code)
-                var existence: Int64 = 0
+                let uuid = UUID(uuidString: code)
                 for Item in items{
-                    if uuid != Item.itemid{
-                        existence += 0}else{existence += 1}}
-                if existence == 1{
-                    print("Est' pidoras")
-                    self.showingAlert1 = true
-                    }.alert(isPresented: $showingAlert1) {Alert(title: Text("One"), message: nil, dismissButton: .cancel())}
-                elsedo {
-                print("ne probil")
-                    self.showingAlert2 = true
+                    if uuid == Item.itemid{
+                        self.nameToPass = Item.serialNum!
+                        self.amountToPass = Item.amount
+                        showingActionSheet = true
+                        break}
+                    else{}
                     }
             case .failure(let error):
                 print(error.localizedDescription)
             }}
-        Image(systemName: "square.dashed")
+        Image(systemName: "viewfinder")
             .resizable()
             .frame(width: 200, height: 200, alignment: .center)
         }
-        
-    }
-}
-
-
-struct CheckOutPage_Previews: PreviewProvider {
-    static var previews: some View {
-        CheckOutPage()
-    }
+        .actionSheet(isPresented: $showingActionSheet){
+            ActionSheet(title: Text(nameToPass), message: Text("Выберите действие"), buttons:[
+                .default(Text("Информация")){showFoundItemSheet = true},
+                .cancel()
+            ])
+        }
+        .sheet(isPresented: $showFoundItemSheet, content: {
+            FoundItem(itemSerial: nameToPass, itemAmount: amountToPass)})
+        }
 }

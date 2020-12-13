@@ -8,13 +8,18 @@
 import SwiftUI
 
 struct FoundItem: View {
+    var itemSerial: String
+    var itemAmount: Int16
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView{
+            Form{
+                Section(header: Text("Информация")){
+                    Text("Наименование: \(itemSerial)")
+                    Text("Кол-во: \(itemAmount)")
+                }
+            }
+                .navigationBarTitle(itemSerial)
+        }
     }
-}
-
-struct FoundItem_Previews: PreviewProvider {
-    static var previews: some View {
-        FoundItem()
-    }
+        
 }

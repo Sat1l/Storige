@@ -19,9 +19,9 @@ struct ViewPage: View//
     ])
     var items: FetchedResults<Item>
     
-    var body: some View//
+    var body: some View
     {
-        NavigationView{//
+        NavigationView{
             List{
                 ForEach(items) { Item in
                     NavigationLink(destination: QrCodeGen(uuid: Item.itemid!, itemSerial: Item.serialNum!, itemAmount: Item.amount) .navigationBarTitle("Детали"))
