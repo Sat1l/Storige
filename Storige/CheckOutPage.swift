@@ -30,7 +30,7 @@ struct CheckOutPage: View {
                 }.padding(.top,50)
                 Spacer()
             }
-        CodeScannerView(codeTypes: [.qr], simulatedData: "Paul Hudson") { result in
+        CodeScannerView(codeTypes: [.qr], simulatedData: "79CF01DB-8FA8-4841-A745-97F83449ED77") { result in
             switch result {
             case .success(let code):
                 print(code)
@@ -48,7 +48,8 @@ struct CheckOutPage: View {
             }}
         Image(systemName: "viewfinder")
             .resizable()
-            .frame(width: 200, height: 200, alignment: .center)
+            .font(Font.title.weight(.ultraLight))
+            .frame(width: 200, height: 200)
         }
         .actionSheet(isPresented: $showingActionSheet){
             ActionSheet(title: Text(nameToPass), message: Text("Выберите действие"), buttons:[
