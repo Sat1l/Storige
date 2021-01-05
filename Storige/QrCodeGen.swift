@@ -12,13 +12,13 @@ struct QrCodeGen : View {
     let context = CIContext()
     let filter = CIFilter.qrCodeGenerator()
     var uuid: UUID
-    var itemSerial: String
-    var itemAmount: Int16
+    var serialNum: String
+    var amount: Int16
     var uuidString: String {return uuid.uuidString}
     var body : some View {
         Form{
-        Text("Наименование: \(itemSerial)")
-        Text("Кол-во: \(itemAmount)")
+        Text("Наименование: \(serialNum)")
+        Text("Кол-во: \(amount)")
             Section(header: Text("персональный QR код")){
             HStack{
             Spacer()
@@ -32,7 +32,7 @@ struct QrCodeGen : View {
         }
     }
     
-    func createQrCodeImage(_ uuidString: String) -> UIImage{
+func createQrCodeImage(_ uuidString: String) -> UIImage{
         let data = Data(uuidString.utf8)
         filter.setValue(data, forKey: "inputMessage")
         if let qrCodeImage = filter.outputImage{
@@ -41,6 +41,6 @@ struct QrCodeGen : View {
             }
         }
             return UIImage()
-    }
+}
     
 }

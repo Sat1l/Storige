@@ -29,9 +29,3 @@ struct ShareSheet: UIViewControllerRepresentable {
         // nothing to do here
     }
 }
-
-struct ShareSheet_Previews: PreviewProvider {
-    static var previews: some View {
-        ShareSheet(activityItems: ["A string" as NSString])
-    }
-}

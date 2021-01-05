@@ -11,7 +11,8 @@ import CoreData
 
 struct ViewPage: View//
 {
-    @State var showNewItemSheet = false
+    @State var showNewItemSheet1 = false
+    @State var showNewItemSheet2 = false
     @State var selected = 0
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(entity: Item.entity(), sortDescriptors: [
@@ -24,7 +25,7 @@ struct ViewPage: View//
         NavigationView{
             List{
                 ForEach(items) { Item in
-                    NavigationLink(destination: QrCodeGen(uuid: Item.itemid!, itemSerial: Item.serialNum!, itemAmount: Item.amount) .navigationBarTitle("Детали"))
+                    NavigationLink(destination: NewItemSheet(TypeOfView: 2, uuid: Item.itemid, serialNum: Item.serialNum!, amountInt: Item.amount))
                     {
                     VStack(alignment: .leading){
                         Text("\(Item.serialNum ?? "")")
@@ -49,18 +50,13 @@ struct ViewPage: View//
             .listStyle(PlainListStyle())
             .navigationBarTitle("Обзор", displayMode: .automatic)
             .navigationBarItems(trailing: Button(action: {
-                showNewItemSheet = true
+                showNewItemSheet1 = true
             }, label: {
                 Image(systemName: "plus.circle")
                     .imageScale(.large)
             }))
-            .sheet(isPresented: $showNewItemSheet, content: {NewItemSheet()})
+            .sheet(isPresented: $showNewItemSheet1, content: {NewItemSheet(TypeOfView: 1)})
         }
     }
 
-}
-struct ViewPage_Previews: PreviewProvider {
-    static var previews: some View {
-        ViewPage().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-    }
 }

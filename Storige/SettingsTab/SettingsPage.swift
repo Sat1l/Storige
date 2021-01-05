@@ -37,9 +37,3 @@ struct SettingsPage: View
         }
     }
 }
-
-struct SettingsPage_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsPage()
-    }
-}
