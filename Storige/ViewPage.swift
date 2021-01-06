@@ -8,12 +8,16 @@
 import SwiftUI
 import CoreData
 
+enum ActiveSheet: Identifiable {
+    case first, second
+    var id: Int {
+        hashValue
+    }
+}
 
 struct ViewPage: View//
 {
-    @State var showNewItemSheet1 = false
-    @State var showNewItemSheet2 = false
-    @State var selected = 0
+    @State var activeSheet: ActiveSheet?
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(entity: Item.entity(), sortDescriptors: [
         NSSortDescriptor(keyPath: \Item.serialNum, ascending: true)
@@ -25,7 +29,12 @@ struct ViewPage: View//
         NavigationView{
             List{
                 ForEach(items) { Item in
-                    NavigationLink(destination: NewItemSheet(TypeOfView: 2, uuid: Item.itemid, serialNum: Item.serialNum!, amountInt: Item.amount))
+                    Button(action: {
+                        activeSheet = .second
+                        hernya.sharedUuid = Item.itemid
+                        hernya.sharedSerialNum = Item.serialNum ?? ""
+                        hernya.sharedAmount = Item.amount
+                    }, label:
                     {
                     VStack(alignment: .leading){
                         Text("\(Item.serialNum ?? "")")
@@ -35,7 +44,7 @@ struct ViewPage: View//
                         Text("UUID: \(Item.itemid!)")
                             .font(.subheadline)
                     }.frame(height: 50)
-                    }}
+                    })}
                 .onDelete { indexSet in
                     for index in indexSet {
                         viewContext.delete(items[index])
@@ -50,13 +59,28 @@ struct ViewPage: View//
             .listStyle(PlainListStyle())
             .navigationBarTitle("Обзор", displayMode: .automatic)
             .navigationBarItems(trailing: Button(action: {
-                showNewItemSheet1 = true
+                activeSheet = .first
             }, label: {
                 Image(systemName: "plus.circle")
                     .imageScale(.large)
             }))
-            .sheet(isPresented: $showNewItemSheet1, content: {NewItemSheet(TypeOfView: 1)})
+            .sheet(item: $activeSheet) { item in
+                switch item {
+                case .first:
+                    NewItemSheet(TypeOfView: 1)
+                case .second:
+                    NewItemSheet(TypeOfView: 2, uuid: hernya.sharedUuid, serialNum: hernya.sharedSerialNum, amountInt: hernya.sharedAmount)                }
+            }
+//            .sheet(isPresented: $showNewItemSheet2, content: {
+//                    NewItemSheet(TypeOfView: 2, uuid: hernya.sharedUuid, serialNum: hernya.sharedSerialNum, amountInt: hernya.sharedAmount)
+//                })
         }
     }
 
+}
+
+struct hernya{
+    static var sharedUuid: UUID?
+    static var sharedSerialNum = ""
+    static var sharedAmount: Int64 = 1
 }

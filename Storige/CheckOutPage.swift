@@ -13,7 +13,7 @@ struct CheckOutPage: View {
     @State var showFoundItemSheet = false
     @State var showingActionSheet = false
     @State var nameToPass: String = ""
-    @State var amountToPass: Int16 = 0
+    @State var amountToPass: Int64 = 0
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(entity: Item.entity(), sortDescriptors: [
         NSSortDescriptor(keyPath: \Item.itemid, ascending: true)

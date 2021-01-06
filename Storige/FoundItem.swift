@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FoundItem: View {
     var itemSerial: String
-    var itemAmount: Int16
+    var itemAmount: Int64
     var body: some View {
         NavigationView{
             Form{

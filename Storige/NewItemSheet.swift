@@ -18,15 +18,12 @@ struct NewItemSheet: View
     var uuidString: String? {return uuid?.uuidString}
     @State var serialNum = ""
     @State var amount = ""
-    @State var amountInt: Int16 = 1
+    @State var amountInt: Int64 = 1
     @Environment(\.managedObjectContext) private var viewContext
     @Environment (\.presentationMode) var presentationMode
     
     var body: some View
-    {
-        NavigationView
-        {
-            
+    {NavigationView{
             switch TypeOfView{
             case 1:
             Form
@@ -44,7 +41,7 @@ struct NewItemSheet: View
                 .navigationBarItems(trailing: Button(action: {
                 let newItem = Item(context: viewContext)
                 newItem.serialNum = self.serialNum
-                self.amountInt = Int16(amount)!
+                self.amountInt = Int64(amount)!
                 newItem.amount = self.amountInt
                 newItem.itemid = UUID()
                 do{
@@ -94,3 +91,4 @@ extension NewItemSheet
                 return UIImage()
     }
 }
+
