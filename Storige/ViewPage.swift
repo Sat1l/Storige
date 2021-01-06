@@ -14,7 +14,6 @@ enum ActiveSheet: Identifiable {
         hashValue
     }
 }
-
 struct ViewPage: View//
 {
     @State var activeSheet: ActiveSheet?
@@ -71,14 +70,10 @@ struct ViewPage: View//
                 case .second:
                     NewItemSheet(TypeOfView: 2, uuid: hernya.sharedUuid, serialNum: hernya.sharedSerialNum, amountInt: hernya.sharedAmount)                }
             }
-//            .sheet(isPresented: $showNewItemSheet2, content: {
-//                    NewItemSheet(TypeOfView: 2, uuid: hernya.sharedUuid, serialNum: hernya.sharedSerialNum, amountInt: hernya.sharedAmount)
-//                })
         }
     }
 
 }
-
 struct hernya{
     static var sharedUuid: UUID?
     static var sharedSerialNum = ""

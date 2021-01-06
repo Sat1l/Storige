@@ -31,9 +31,9 @@ struct SettingsPage: View
                 Text("Выйти из аккаунта").foregroundColor(.red)
             }.navigationBarTitle("Настройки", displayMode: .automatic)
         }
-        .sheet(isPresented: $showShareSheet) {
-            ShareSheet(activityItems: ["Попробуй новое приложение Storige для организации своих вещей! Ссылка в AppStore:"])
-            
-        }
+//        .sheet(isPresented: $showShareSheet) {
+//            ShareSheet(activityItems: ["Попробуй новое приложение Storige для организации своих вещей! Ссылка в AppStore:"])
+//
+//        }
     }
 }

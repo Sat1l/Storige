@@ -19,6 +19,8 @@ struct NewItemSheet: View
     @State var serialNum = ""
     @State var amount = ""
     @State var amountInt: Int64 = 1
+    @State var items: [Any] = []
+    @State var sharing = false
     @Environment(\.managedObjectContext) private var viewContext
     @Environment (\.presentationMode) var presentationMode
     
@@ -60,30 +62,45 @@ struct NewItemSheet: View
                 Form{
                 Text("Наименование: \(serialNum)")
                 Text("Кол-во: \(amountInt)")
-                    Section(header: Text("персональный QR код")){
+                    Section(header: HStack{
+                        Text("QR код")
+                        Spacer()
+                        Button(action: {
+                            items.removeAll()
+                            items.append(createQrCodeImage(uuidString!))
+                            sharing.toggle()
+                        }, label: {
+                            Text("Поделиться")
+                                .foregroundColor(.blue)
+                        })
+                    }){
                     HStack{
-                    Spacer()
-                        Image(uiImage: createQrCodeImage(uuidString!))
+                    Image(uiImage: createQrCodeImage(uuidString!))
                         .interpolation(.none)
                         .resizable()
-                        .frame(width: 250, height: 250, alignment: .center)
-                    Spacer()
+                        .scaledToFit()
                     }
                     }
-                }.navigationBarTitle("Детали", displayMode: .inline)
+                }
+                .navigationBarTitle("Детали", displayMode: .inline)
+                .sheet(isPresented: $sharing, content:{
+                    ShareSheet(items: items)
+                })
             default:
                 Text("hello")
             }
+        
     }
 }
 }
 
 extension NewItemSheet
 {
-    func createQrCodeImage(_ uuidString: String) -> UIImage{
+func createQrCodeImage(_ uuidString: String) -> UIImage{
             let data = Data(uuidString.utf8)
             filter.setValue(data, forKey: "inputMessage")
-            if let qrCodeImage = filter.outputImage{
+            let transform = CGAffineTransform(scaleX: 15, y: 15)
+    if let qrCodeImage = filter.outputImage?.transformed(by: transform){
                 if let qrCodeCGImage = context.createCGImage(qrCodeImage, from: qrCodeImage.extent){
                     return UIImage(cgImage:  qrCodeCGImage)
                 }
@@ -92,3 +109,11 @@ extension NewItemSheet
     }
 }
 
+struct ShareSheet: UIViewControllerRepresentable {
+    var items: [Any]
+    func makeUIViewController(context: Context) -> some UIViewController {
+        let controller = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        return controller
+    }
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
+}
