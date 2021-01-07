@@ -27,13 +27,16 @@ struct SettingsPage: View
                     Button(action: {self.isShowingMailView.toggle()}){Text("Связаться с разработчиком")}
                         .disabled(!MFMailComposeViewController.canSendMail())
                         .sheet(isPresented: $isShowingMailView) {MailView(result: self.$result)}
-                    Button(action: {self.showShareSheet = true}){Text("Рассказать друзьям")}}
+                    Button(action: {shareButton()}){Text("Рассказать друзьям")}}
                 Text("Выйти из аккаунта").foregroundColor(.red)
             }.navigationBarTitle("Настройки", displayMode: .automatic)
         }
-//        .sheet(isPresented: $showShareSheet) {
-//            ShareSheet(activityItems: ["Попробуй новое приложение Storige для организации своих вещей! Ссылка в AppStore:"])
-//
-//        }
+    }
+    func shareButton() {
+        isShareSheetShowing.toggle()
+        let url = ["Попробуйте новое приложение для организации своих вещей - Storige!"]
+        let av = UIActivityViewController(activityItems: url, applicationActivities: nil)
+        UIApplication.shared.windows.first?.rootViewController?.present(av, animated: true, completion: nil)
+
     }
 }

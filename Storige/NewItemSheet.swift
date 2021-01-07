@@ -83,6 +83,7 @@ struct NewItemSheet: View
                     }
                 }
                 .navigationBarTitle("Детали", displayMode: .inline)
+                
             default:
                 Text("hello")
             }
