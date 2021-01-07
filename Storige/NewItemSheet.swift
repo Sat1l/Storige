@@ -27,7 +27,7 @@ struct NewItemSheet: View
     var body: some View
     {NavigationView{
             switch TypeOfView{
-            case 1:
+            case 1: //добавление нового объекта
             Form
             {
                 TextField("Название", text: $serialNum)
@@ -58,7 +58,7 @@ struct NewItemSheet: View
                 Text("Добавить")
             }))
             }.navigationBarTitle("Новый объект", displayMode: .inline)
-            case 2:
+            case 2: //детали об объекте
                 Form{
                 Text("Наименование: \(serialNum)")
                 Text("Кол-во: \(amountInt)")
@@ -68,7 +68,7 @@ struct NewItemSheet: View
                         Button(action: {
                             items.removeAll()
                             items.append(createQrCodeImage(uuidString!))
-                            sharing.toggle()
+                            shareButton()
                         }, label: {
                             Text("Поделиться")
                                 .foregroundColor(.blue)
@@ -83,15 +83,17 @@ struct NewItemSheet: View
                     }
                 }
                 .navigationBarTitle("Детали", displayMode: .inline)
-                .sheet(isPresented: $sharing, content:{
-                    ShareSheet(items: items)
-                })
             default:
                 Text("hello")
             }
         
     }
 }
+    func shareButton() {
+        let av = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        UIApplication.shared.windows.last!.rootViewController!.present(av, animated: true, completion: nil)
+        sharing.toggle()
+    }
 }
 
 extension NewItemSheet
@@ -107,13 +109,4 @@ func createQrCodeImage(_ uuidString: String) -> UIImage{
             }
                 return UIImage()
     }
-}
-
-struct ShareSheet: UIViewControllerRepresentable {
-    var items: [Any]
-    func makeUIViewController(context: Context) -> some UIViewController {
-        let controller = UIActivityViewController(activityItems: items, applicationActivities: nil)
-        return controller
-    }
-    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
 }
