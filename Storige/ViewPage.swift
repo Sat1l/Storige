@@ -10,19 +10,18 @@ import CoreData
 
 enum ActiveSheet: Identifiable {
     case first, second
-    var id: Int {
-        hashValue
-    }
+    var id: Int {hashValue}
 }
+
 struct ViewPage: View//
 {
     @State var activeSheet: ActiveSheet?
+    @State var sortSheet = false
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(entity: Item.entity(), sortDescriptors: [
         NSSortDescriptor(keyPath: \Item.serialNum, ascending: true)
     ])
     var items: FetchedResults<Item>
-    
     var body: some View
     {
         NavigationView{
@@ -57,9 +56,11 @@ struct ViewPage: View//
                 }
             .listStyle(PlainListStyle())
             .navigationBarTitle("Обзор", displayMode: .automatic)
-            .navigationBarItems(trailing: Button(action: {
-                activeSheet = .first
+            .navigationBarItems(leading: Button(action:{
+                sortSheet.toggle()
             }, label: {
+                Text("Сортировка")
+            }), trailing: Button(action: {activeSheet = .first}, label: {
                 Image(systemName: "plus.circle")
                     .imageScale(.large)
             }))
@@ -68,12 +69,20 @@ struct ViewPage: View//
                 case .first:
                     NewItemSheet(TypeOfView: 1)
                 case .second:
-                    NewItemSheet(TypeOfView: 2, uuid: hernya.sharedUuid, serialNum: hernya.sharedSerialNum, amountInt: hernya.sharedAmount)                }
+                    NewItemSheet(TypeOfView: 2, uuid: hernya.sharedUuid, serialNum: hernya.sharedSerialNum, amountInt: hernya.sharedAmount)}
+            }
+            .actionSheet(isPresented: $sortSheet) {
+                ActionSheet(title: Text("Change background"), buttons: [
+                    .default(Text("По алфавиту")) {},
+                    .default(Text("Green")) {},
+                    .default(Text("Blue")) {},
+                    .cancel()
+                ])
             }
         }
     }
-
 }
+
 struct hernya{
     static var sharedUuid: UUID?
     static var sharedSerialNum = ""

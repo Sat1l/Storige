@@ -214,6 +214,3 @@ if ready == libraries.count {
     print("Sorry 😢 - ✅ \(ready) | ❌ \(notReady)")
     print("Help to improve SPM capablility by opening an issue or contribute via a Pullrequest")
 }
-
-
-

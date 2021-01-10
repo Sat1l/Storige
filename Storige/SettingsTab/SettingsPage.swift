@@ -20,9 +20,6 @@ struct SettingsPage: View
         NavigationView
         {
             Form {
-            NavigationLink(
-                destination: SortView() .navigationBarTitle("Сортировка по", displayMode: .automatic),
-                label: {Text("Сортировка по")})
                 Section{
                     Button(action: {self.isShowingMailView.toggle()}){Text("Связаться с разработчиком")}
                         .disabled(!MFMailComposeViewController.canSendMail())

@@ -12,7 +12,6 @@ import CoreImage.CIFilterBuiltins
 struct NewItemSheet: View
 {
     @State var TypeOfView: UInt8 // 1 - new item | 2 - view item | 3 - edit item
-    let context = CIContext()
     let filter = CIFilter.qrCodeGenerator()
     var uuid: UUID?
     var uuidString: String? {return uuid?.uuidString}
@@ -21,6 +20,7 @@ struct NewItemSheet: View
     @State var amountInt: Int64 = 1
     @State var items: [Any] = []
     @State var sharing = false
+    let now = Date()
     @Environment(\.managedObjectContext) private var viewContext
     @Environment (\.presentationMode) var presentationMode
     
@@ -32,6 +32,11 @@ struct NewItemSheet: View
             {
                 TextField("Название", text: $serialNum)
                     .keyboardType(.default)
+                    .onReceive(Just(serialNum)) { inputValue in
+                                if inputValue.count > 100 {
+                                    self.serialNum.removeLast()
+                                }
+                    }
                 TextField("Количество", text: $amount)
                     .keyboardType(.numberPad)
                     .onReceive(Just(amount))
@@ -39,6 +44,9 @@ struct NewItemSheet: View
                         newValue in
                         let filtered = newValue.filter { "0123456789".contains($0) }
                         if filtered != newValue {self.amount = filtered}
+                        if newValue.count > 10 {
+                            self.amount.removeLast()
+                        }
                     }
                 .navigationBarItems(trailing: Button(action: {
                 let newItem = Item(context: viewContext)
@@ -60,9 +68,9 @@ struct NewItemSheet: View
             }.navigationBarTitle("Новый объект", displayMode: .inline)
             case 2: //детали об объекте
                 Form{
-                Text("Наименование: \(serialNum)")
-                Text("Кол-во: \(amountInt)")
-                    Section(header: HStack{
+                    Section(header: Text("Наименование: ")){Text(serialNum)}
+                    Section(header: Text("Количество: ")){Text(amount)}
+                Section(header: HStack{
                         Text("QR код")
                         Spacer()
                         Button(action: {
@@ -70,7 +78,7 @@ struct NewItemSheet: View
                             items.append(createQrCodeImage(uuidString!))
                             shareButton()
                         }, label: {
-                            Text("Поделиться")
+                                Text("Поделиться")
                                 .foregroundColor(.blue)
                         })
                     }){
@@ -80,10 +88,10 @@ struct NewItemSheet: View
                         .resizable()
                         .scaledToFit()
                     }
+                    .padding(.horizontal)
                     }
                 }
-                .navigationBarTitle("Детали", displayMode: .inline)
-                
+                .navigationBarTitle(serialNum, displayMode: .inline)
             default:
                 Text("hello")
             }
@@ -104,7 +112,7 @@ func createQrCodeImage(_ uuidString: String) -> UIImage{
             filter.setValue(data, forKey: "inputMessage")
             let transform = CGAffineTransform(scaleX: 15, y: 15)
     if let qrCodeImage = filter.outputImage?.transformed(by: transform){
-                if let qrCodeCGImage = context.createCGImage(qrCodeImage, from: qrCodeImage.extent){
+                if let qrCodeCGImage = CIContext().createCGImage(qrCodeImage, from: qrCodeImage.extent){
                     return UIImage(cgImage:  qrCodeCGImage)
                 }
             }
