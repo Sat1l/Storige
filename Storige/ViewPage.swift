@@ -22,12 +22,15 @@ struct ViewPage: View//
         NSSortDescriptor(keyPath: \Item.serialNum, ascending: true)
     ])
     var items: FetchedResults<Item>
+    @State var SortedItems:[Item] = []
+    
     var body: some View
     {
         NavigationView{
             List{
-                ForEach(items) { Item in
+                ForEach(SortedItems) { Item in
                     Button(action: {
+                        print(Item)
                         activeSheet = .second
                         hernya.sharedUuid = Item.itemid
                         hernya.sharedSerialNum = Item.serialNum ?? ""
@@ -39,13 +42,11 @@ struct ViewPage: View//
                             .font(.headline)
                         Text("Кол-во: \(Item.amount)")
                             .font(.subheadline)
-                        Text("UUID: \(Item.itemid!)")
-                            .font(.subheadline)
                     }.frame(height: 50)
                     })}
                 .onDelete { indexSet in
                     for index in indexSet {
-                        viewContext.delete(items[index])
+                        viewContext.delete(SortedItems[index])
                     }
                     do {
                         try viewContext.save()
@@ -69,12 +70,18 @@ struct ViewPage: View//
                 case .first:
                     NewItemSheet(TypeOfView: 1)
                 case .second:
-                    NewItemSheet(TypeOfView: 2, uuid: hernya.sharedUuid, serialNum: hernya.sharedSerialNum, amountInt: hernya.sharedAmount)}
+                    NewItemSheet(TypeOfView: 2, uuid: hernya.sharedUuid, serialNum: hernya.sharedSerialNum, amountInt: hernya.sharedAmount)
+                }
             }
             .actionSheet(isPresented: $sortSheet) {
                 ActionSheet(title: Text("Change background"), buttons: [
-                    .default(Text("По алфавиту")) {},
-                    .default(Text("Green")) {},
+                    .default(Text("Кол-во возрастание")) {
+                        SortedItems = items.sorted(by: {$0.amount < $1.amount})
+
+                    },
+                    .default(Text("Кол-во убывание")) {
+                        SortedItems = items.sorted(by: {$0.amount > $1.amount})
+                    },
                     .default(Text("Blue")) {},
                     .cancel()
                 ])

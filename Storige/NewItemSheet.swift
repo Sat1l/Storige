@@ -54,6 +54,7 @@ struct NewItemSheet: View
                 self.amountInt = Int64(amount)!
                 newItem.amount = self.amountInt
                 newItem.itemid = UUID()
+                newItem.creationDate = Date()
                 do{
                     try viewContext.save()
                     print("item saved")
@@ -69,7 +70,7 @@ struct NewItemSheet: View
             case 2: //детали об объекте
                 Form{
                     Section(header: Text("Наименование: ")){Text(serialNum)}
-                    Section(header: Text("Количество: ")){Text(amount)}
+                    Section(header: Text("Количество: ")){Text(String(amountInt))}
                 Section(header: HStack{
                         Text("QR код")
                         Spacer()
