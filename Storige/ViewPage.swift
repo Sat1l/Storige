@@ -23,7 +23,7 @@ struct ViewPage: View//
     ])
     var items: FetchedResults<Item>
     @State var SortedItems:[Item] = []
-    
+    @State var typeOfSorting: Int8 = 1
     var body: some View
     {
         NavigationView{
@@ -50,6 +50,14 @@ struct ViewPage: View//
                     }
                     do {
                         try viewContext.save()
+                        switch typeOfSorting{
+                        case 1:
+                            forSorting(Type: 1)
+                        case 2:
+                            forSorting(Type: 2)
+                        default:
+                            print("gg")
+                        }
                     } catch {
                         print(error.localizedDescription)
                     }
@@ -69,23 +77,49 @@ struct ViewPage: View//
                 switch item {
                 case .first:
                     NewItemSheet(TypeOfView: 1)
+                        .onDisappear(perform: {
+                            SortedItems = items.sorted(by: {$0.amount < $1.amount})
+                        })
                 case .second:
                     NewItemSheet(TypeOfView: 2, uuid: hernya.sharedUuid, serialNum: hernya.sharedSerialNum, amountInt: hernya.sharedAmount)
                 }
             }
             .actionSheet(isPresented: $sortSheet) {
-                ActionSheet(title: Text("Change background"), buttons: [
+                ActionSheet(title: Text("Сортировать по"), buttons: [
                     .default(Text("Кол-во возрастание")) {
-                        SortedItems = items.sorted(by: {$0.amount < $1.amount})
+                        forSorting(Type: 1)
 
                     },
                     .default(Text("Кол-во убывание")) {
-                        SortedItems = items.sorted(by: {$0.amount > $1.amount})
+                        forSorting(Type: 2)
                     },
                     .default(Text("Blue")) {},
                     .cancel()
                 ])
             }
+        }.onAppear{
+            switch typeOfSorting{
+            case 1:
+                forSorting(Type: 1)
+            case 2:
+                forSorting(Type: 2)
+            default:
+                print("gg")
+            }
+        }
+    }
+    func forSorting(Type: Int){
+        switch Type{
+        case 1: // возрастание количества
+            typeOfSorting = 1
+            SortedItems = items.sorted(by: {$0.amount < $1.amount})
+        case 2: // убывание количества
+            typeOfSorting = 2
+            SortedItems = items.sorted(by: {$0.amount > $1.amount})
+        case 3:
+            print("ya hz")
+        default:
+            print("yopta")
         }
     }
 }
@@ -95,3 +129,5 @@ struct hernya{
     static var sharedSerialNum = ""
     static var sharedAmount: Int64 = 1
 }
+
+
