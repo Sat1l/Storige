@@ -129,5 +129,3 @@ struct hernya{
     static var sharedSerialNum = ""
     static var sharedAmount: Int64 = 1
 }
-
-

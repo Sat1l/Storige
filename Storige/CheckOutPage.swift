@@ -12,8 +12,6 @@ import CoreData
 struct CheckOutPage: View {
     @State var showFoundItemSheet = false
     @State var showingActionSheet = false
-    @State var nameToPass: String = ""
-    @State var amountToPass: Int64 = 0
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(entity: Item.entity(), sortDescriptors: [
         NSSortDescriptor(keyPath: \Item.itemid, ascending: true)
@@ -37,8 +35,9 @@ struct CheckOutPage: View {
                 let uuid = UUID(uuidString: code)
                 for Item in items{
                     if uuid == Item.itemid{
-                        self.nameToPass = Item.serialNum!
-                        self.amountToPass = Item.amount
+                        hernya.sharedUuid = Item.itemid
+                        hernya.sharedSerialNum = Item.serialNum ?? ""
+                        hernya.sharedAmount = Item.amount
                         showingActionSheet = true
                         break}
                     else{}
@@ -52,12 +51,12 @@ struct CheckOutPage: View {
             .frame(width: 200, height: 200)
         }
         .actionSheet(isPresented: $showingActionSheet){
-            ActionSheet(title: Text(nameToPass), message: Text("Выберите действие"), buttons:[
+            ActionSheet(title: Text(hernya.sharedSerialNum), message: Text("Выберите действие"), buttons:[
                 .default(Text("Информация")){showFoundItemSheet = true},
                 .cancel()
             ])
         }
         .sheet(isPresented: $showFoundItemSheet, content: {
-            FoundItem(itemSerial: nameToPass, itemAmount: amountToPass)})
+                NewItemSheet(TypeOfView: 2, uuid: hernya.sharedUuid, serialNum: hernya.sharedSerialNum, amountInt: hernya.sharedAmount)})
         }
 }
