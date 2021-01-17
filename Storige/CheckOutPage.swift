@@ -33,15 +33,22 @@ struct CheckOutPage: View {
             case .success(let code):
                 print(code)
                 let uuid = UUID(uuidString: code)
-                for Item in items{
-                    if uuid == Item.itemid{
-                        hernya.sharedUuid = Item.itemid
-                        hernya.sharedSerialNum = Item.serialNum ?? ""
-                        hernya.sharedAmount = Item.amount
-                        showingActionSheet = true
-                        break}
-                    else{}
-                    }
+                let firstLetter = Character(String(code.prefix(1)))
+                switch firstLetter.isNumber {
+                case true:
+                    firstLetter.wholeNumberValue! >= 5 ? print("decrease number") : print("increase number")
+                case false:
+                    firstLetter.uppercased() <= "N" ? print("increase alphabett") : print("decrease alphabet")
+                }
+//                for Item in items{
+//                    if uuid == Item.itemid{
+//                        hernya.sharedUuid = Item.itemid
+//                        hernya.sharedSerialNum = Item.serialNum ?? ""
+//                        hernya.sharedAmount = Item.amount
+//                        showingActionSheet = true
+//                        break}
+//                    else{}
+//                    }
             case .failure(let error):
                 print(error.localizedDescription)
             }}

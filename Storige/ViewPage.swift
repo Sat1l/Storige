@@ -42,6 +42,8 @@ struct ViewPage: View//
                             .font(.headline)
                         Text("Кол-во: \(Item.amount)")
                             .font(.subheadline)
+                        Text("Кол-во: \(Item.itemid!)")
+                            .font(.subheadline)
                     }.frame(height: 50)
                     })}
                 .onDelete { indexSet in
@@ -55,6 +57,8 @@ struct ViewPage: View//
                             forSorting(Type: 1)
                         case 2:
                             forSorting(Type: 2)
+                        case 3:
+                            forSorting(Type: 3)
                         default:
                             print("gg")
                         }
@@ -93,7 +97,9 @@ struct ViewPage: View//
                     .default(Text("Кол-во убывание")) {
                         forSorting(Type: 2)
                     },
-                    .default(Text("Blue")) {},
+                    .default(Text("Blue")) {
+                        forSorting(Type: 3)
+                    },
                     .cancel()
                 ])
             }
@@ -103,6 +109,8 @@ struct ViewPage: View//
                 forSorting(Type: 1)
             case 2:
                 forSorting(Type: 2)
+            case 3:
+                forSorting(Type: 3)
             default:
                 print("gg")
             }
@@ -117,7 +125,8 @@ struct ViewPage: View//
             typeOfSorting = 2
             SortedItems = items.sorted(by: {$0.amount > $1.amount})
         case 3:
-            print("ya hz")
+            typeOfSorting = 3
+            SortedItems = items.sorted(by: {$0.serialNum! < $1.serialNum!})
         default:
             print("yopta")
         }

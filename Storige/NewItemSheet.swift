@@ -15,6 +15,7 @@ struct NewItemSheet: View
     let filter = CIFilter.qrCodeGenerator()
     var uuid: UUID?
     var uuidString: String? {return uuid?.uuidString}
+    @State var dateA: Date?
     @State var serialNum = ""
     @State var amount = ""
     @State var amountInt: Int64 = 1
