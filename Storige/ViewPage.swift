@@ -30,7 +30,6 @@ struct ViewPage: View//
             List{
                 ForEach(SortedItems) { Item in
                     Button(action: {
-                        print(Item)
                         activeSheet = .second
                         hernya.sharedUuid = Item.itemid
                         hernya.sharedSerialNum = Item.serialNum ?? ""
@@ -90,16 +89,9 @@ struct ViewPage: View//
             }
             .actionSheet(isPresented: $sortSheet) {
                 ActionSheet(title: Text("Сортировать по"), buttons: [
-                    .default(Text("Кол-во возрастание")) {
-                        forSorting(Type: 1)
-
-                    },
-                    .default(Text("Кол-во убывание")) {
-                        forSorting(Type: 2)
-                    },
-                    .default(Text("Blue")) {
-                        forSorting(Type: 3)
-                    },
+                    .default(Text("Кол-во возрастание")) {forSorting(Type: 1)},
+                    .default(Text("Кол-во убывание")) {forSorting(Type: 2)},
+                    .default(Text("По Алфавиту")) {forSorting(Type: 3)},
                     .cancel()
                 ])
             }

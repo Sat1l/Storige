@@ -17,6 +17,7 @@ struct CheckOutPage: View {
         NSSortDescriptor(keyPath: \Item.itemid, ascending: true)
     ])
     var items: FetchedResults<Item>
+    @State var SortedItems:[Item] = []
     var body: some View {
 
         ZStack{VStack{ZStack{
@@ -32,23 +33,23 @@ struct CheckOutPage: View {
             switch result {
             case .success(let code):
                 print(code)
-                let uuid = UUID(uuidString: code)
-                let firstLetter = Character(String(code.prefix(1)))
-                switch firstLetter.isNumber {
-                case true:
-                    firstLetter.wholeNumberValue! >= 5 ? print("decrease number") : print("increase number")
-                case false:
-                    firstLetter.uppercased() <= "N" ? print("increase alphabett") : print("decrease alphabet")
-                }
-//                for Item in items{
-//                    if uuid == Item.itemid{
-//                        hernya.sharedUuid = Item.itemid
-//                        hernya.sharedSerialNum = Item.serialNum ?? ""
-//                        hernya.sharedAmount = Item.amount
-//                        showingActionSheet = true
-//                        break}
-//                    else{}
-//                    }
+                var uuid = UUID(uuidString: code)
+//                let firstLetter = Character(String(code.prefix(1)))
+//                switch firstLetter.isNumber {
+//                case true:
+//                    firstLetter.wholeNumberValue! >= 5 ? print("decrease number") : print("increase number")
+//                case false:
+//                    firstLetter.uppercased() <= "N" ? print("increase alphabett") : print("decrease alphabet")
+//                }
+                for Item in items{
+                    if uuid == Item.itemid{
+                        hernya.sharedUuid = Item.itemid
+                        hernya.sharedSerialNum = Item.serialNum ?? ""
+                        hernya.sharedAmount = Item.amount
+                        showingActionSheet = true
+                        break}
+                    else{}
+                    }
             case .failure(let error):
                 print(error.localizedDescription)
             }}
