@@ -19,6 +19,7 @@ struct PersistenceController {
             newItem.serialNum = String()
             newItem.itemid = UUID()
             newItem.creationDate = Date()
+            newItem.isOnDeleted = Bool()
         }
         do {
             try viewContext.save()

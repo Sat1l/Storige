@@ -24,8 +24,14 @@ struct SettingsPage: View
                     Button(action: {self.isShowingMailView.toggle()}){Text("Связаться с разработчиком")}
                         .disabled(!MFMailComposeViewController.canSendMail())
                         .sheet(isPresented: $isShowingMailView) {MailView(result: self.$result)}
-                    Button(action: {shareButton()}){Text("Рассказать друзьям")}}
+                    Button(action: {shareButton()}){Text("Рассказать друзьям")}
+                }
                 Text("Выйти из аккаунта").foregroundColor(.red)
+                Section{
+                    NavigationLink(destination: DeletedItemsList()){
+                        Text("gg")
+                    }
+                }
             }.navigationBarTitle("Настройки", displayMode: .automatic)
         }
     }

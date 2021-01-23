@@ -18,17 +18,16 @@ struct ViewPage: View//
     @State var activeSheet: ActiveSheet?
     @State var sortSheet = false
     @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(entity: Item.entity(), sortDescriptors: [
-        NSSortDescriptor(keyPath: \Item.serialNum, ascending: true)
-    ])
-    var items: FetchedResults<Item>
+    @FetchRequest(entity: Item.entity(), sortDescriptors: [])
+    public var items: FetchedResults<Item>
+    @State var FetchedItems:[Item] = []
     @State var SortedItems:[Item] = []
     @State var typeOfSorting: Int8 = 1
     var body: some View
     {
         NavigationView{
             List{
-                ForEach(SortedItems) { Item in
+                ForEach(SortedItems) {  Item in
                     Button(action: {
                         activeSheet = .second
                         hernya.sharedUuid = Item.itemid
@@ -59,7 +58,7 @@ struct ViewPage: View//
                         case 3:
                             forSorting(Type: 3)
                         default:
-                            print("gg")
+                            print("")
                         }
                     } catch {
                         print(error.localizedDescription)
@@ -81,7 +80,9 @@ struct ViewPage: View//
                 case .first:
                     NewItemSheet(TypeOfView: 1)
                         .onDisappear(perform: {
-                            SortedItems = items.sorted(by: {$0.amount < $1.amount})
+                            FetchedItems = items.sorted(by: {$0.amount < $1.amount})
+                            SortedItems = FetchedItems.filter{$0.isOnDeleted == false}
+                            hernya.deletedItemsList = SortedItems
                         })
                 case .second:
                     NewItemSheet(TypeOfView: 2, uuid: hernya.sharedUuid, serialNum: hernya.sharedSerialNum, amountInt: hernya.sharedAmount)
@@ -129,4 +130,5 @@ struct hernya{
     static var sharedUuid: UUID?
     static var sharedSerialNum = ""
     static var sharedAmount: Int64 = 1
+    static var deletedItemsList:[Item] = []
 }
