@@ -25,7 +25,9 @@ struct DeletedItemsList: View {
                                 .font(.subheadline)
                             Text("Кол-во: \(Item.itemid!)")
                                 .font(.subheadline)
-                        }.frame(height: 50)
+                            Text("Удалено?: \(String(Item.isOnDeleted))")
+                                .font(.subheadline)
+                        }.frame(height: 70)
                         })}
             }
             .navigationBarTitle("text", displayMode: .inline)

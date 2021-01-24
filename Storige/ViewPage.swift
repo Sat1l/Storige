@@ -18,16 +18,17 @@ struct ViewPage: View//
     @State var activeSheet: ActiveSheet?
     @State var sortSheet = false
     @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(entity: Item.entity(), sortDescriptors: [])
+    @FetchRequest(entity: Item.entity(), sortDescriptors: [
+        NSSortDescriptor(keyPath: \Item.serialNum, ascending: true)
+    ])
     public var items: FetchedResults<Item>
-    @State var FetchedItems:[Item] = []
     @State var SortedItems:[Item] = []
     @State var typeOfSorting: Int8 = 1
     var body: some View
     {
         NavigationView{
             List{
-                ForEach(SortedItems) {  Item in
+                ForEach(items.filter{$0.isOnDeleted == false}) {  Item in
                     Button(action: {
                         activeSheet = .second
                         hernya.sharedUuid = Item.itemid
@@ -40,9 +41,11 @@ struct ViewPage: View//
                             .font(.headline)
                         Text("Кол-во: \(Item.amount)")
                             .font(.subheadline)
-                        Text("Кол-во: \(Item.itemid!)")
+                        Text("Айдишник: \(Item.itemid!)")
                             .font(.subheadline)
-                    }.frame(height: 50)
+                        Text("Удалено?: \(String(Item.isOnDeleted))")
+                            .font(.subheadline)
+                    }.frame(height: 70)
                     })}
                 .onDelete { indexSet in
                     for index in indexSet {
@@ -80,9 +83,7 @@ struct ViewPage: View//
                 case .first:
                     NewItemSheet(TypeOfView: 1)
                         .onDisappear(perform: {
-                            FetchedItems = items.sorted(by: {$0.amount < $1.amount})
-                            SortedItems = FetchedItems.filter{$0.isOnDeleted == false}
-                            hernya.deletedItemsList = SortedItems
+                            hernya.deletedItemsList = items.filter{$0.isOnDeleted == true}
                         })
                 case .second:
                     NewItemSheet(TypeOfView: 2, uuid: hernya.sharedUuid, serialNum: hernya.sharedSerialNum, amountInt: hernya.sharedAmount)
@@ -97,6 +98,7 @@ struct ViewPage: View//
                 ])
             }
         }.onAppear{
+            hernya.deletedItemsList = items.filter{$0.isOnDeleted == true}
             switch typeOfSorting{
             case 1:
                 forSorting(Type: 1)
@@ -117,7 +119,7 @@ struct ViewPage: View//
         case 2: // убывание количества
             typeOfSorting = 2
             SortedItems = items.sorted(by: {$0.amount > $1.amount})
-        case 3:
+        case 3: //убывание по алфавиту
             typeOfSorting = 3
             SortedItems = items.sorted(by: {$0.serialNum! < $1.serialNum!})
         default:
