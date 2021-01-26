@@ -25,17 +25,17 @@ struct ViewPage: View{ // начало главной структуры
     
     var body: some View // главный вью
     {
-        NavigationView{
+        NavigationView{ // обертка для невигейшн вью начало
             List{ // начало оформления списка
                 ForEach(SortedItems.filter{$0.isOnDeleted == false}) {  Item in // для каждого предмета в списке SortedItems применяем эти оформления
                     Button(action: { //начало действий при нажатии кнопки
-                        activeSheet = .second
+                        activeSheet = .second // вызываем шит с подробностями об объекте
                         hernya.sharedUuid = Item.itemid
                         hernya.sharedSerialNum = Item.serialNum ?? ""
                         hernya.sharedAmount = Item.amount
                     }, label: //конец действий при нажатии кнопки и начало лейбла
                     {
-                    VStack(alignment: .leading){
+                    VStack(alignment: .leading){ //визуальная оболочка для кнопки
                         Text("\(Item.serialNum ?? "")")
                             .font(.headline)
                         Text("Кол-во: \(Item.amount)")
@@ -44,14 +44,14 @@ struct ViewPage: View{ // начало главной структуры
                             .font(.subheadline)
                         Text("Удалено?: \(String(Item.isOnDeleted))")
                             .font(.subheadline)
-                    }.frame(height: 70)
+                    }.frame(height: 70)// конец визуальной оболочки для кнопки и модификатор с ограничителем высоты
                     }/*конец лейбла*/ ) /*конец кнопки*/ } /*конец оформлений*/
                 .onDelete { indexSet in //отклик и обработка удаления предмета в списке начало
                     for index in indexSet {
                         SortedItems[index].isOnDeleted = true
                         hernya.deletedItemsList = items.filter{$0.isOnDeleted == true}
 //                        viewContext.delete(SortedItems[index])
-                    }
+                        }
                     do {
                         try viewContext.save()
                         switch typeOfSorting{
@@ -74,7 +74,7 @@ struct ViewPage: View{ // начало главной структуры
             .navigationBarItems(leading: Button(action:{sortSheet.toggle()},label: {Text("Сортировка")}),//первая строчка кнопки в топ баре добавления нового предмета
             trailing: Button(action: {activeSheet = .first}, label: {Image(systemName: "plus.circle").imageScale(.large)}))//вторая строчка кнопки в топ баре добавления нового предмета
             .sheet(item: $activeSheet) { item in //шит с добавлением, или же обзором предмета
-                switch item {
+                switch item { // свитч отслеживающий какой показывать - новый или обзор начало
                 case .first: // добавление предмета
                     NewItemSheet(TypeOfView: 1)
                         .onDisappear(perform: {
@@ -82,7 +82,7 @@ struct ViewPage: View{ // начало главной структуры
                         })
                 case .second: // обзор предмета
                     NewItemSheet(TypeOfView: 2, uuid: hernya.sharedUuid, serialNum: hernya.sharedSerialNum, amountInt: hernya.sharedAmount)
-                }
+                }// свитч отслеживающий какой показывать - новый или обзор конец
             } // конец шита с добавлением или обзором
             .actionSheet(isPresented: $sortSheet) { //ЭкшонЩит с типами сортировок
                 ActionSheet(title: Text("Сортировать по"), buttons: [
@@ -92,18 +92,9 @@ struct ViewPage: View{ // начало главной структуры
                     .cancel()
                 ])
             } // конец экшон щита
-        }.onAppear{ // инициализируем списки и сортируем при запуске
+        } // обертка для невигейшн вью конец
+        .onAppear{ // инициализируем списки и сортируем при запуске
             hernya.deletedItemsList = items.filter{$0.isOnDeleted == true}
-            switch typeOfSorting{
-            case 1:
-                forSorting(Type: 1)
-            case 2:
-                forSorting(Type: 2)
-            case 3:
-                forSorting(Type: 3)
-            default:
-                print("gg")
-            }
         } // конец инициализации списков
     }// конец главного вью
     func forSorting(Type: Int){ // функция для сортировки отображаемого на экране списка начало
