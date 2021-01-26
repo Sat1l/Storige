@@ -56,7 +56,7 @@ struct NewItemSheet: View
                 newItem.amount = self.amountInt
                 newItem.itemid = UUID()
                 newItem.creationDate = Date()
-                newItem.isOnDeleted = true
+                newItem.isOnDeleted = false
                 do{
                     try viewContext.save()
                     print("item saved")

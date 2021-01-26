@@ -8,33 +8,32 @@
 import SwiftUI
 import CoreData
 
-enum ActiveSheet: Identifiable {
+enum ActiveSheet: Identifiable { // ответственно за переключение шитов
     case first, second
     var id: Int {hashValue}
 }
 
-struct ViewPage: View//
-{
+struct ViewPage: View{ // начало главной структуры
+    
     @State var activeSheet: ActiveSheet?
     @State var sortSheet = false
     @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(entity: Item.entity(), sortDescriptors: [
-        NSSortDescriptor(keyPath: \Item.serialNum, ascending: true)
-    ])
+    @FetchRequest(entity: Item.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Item.serialNum, ascending: true)])
     public var items: FetchedResults<Item>
     @State var SortedItems:[Item] = []
     @State var typeOfSorting: Int8 = 1
-    var body: some View
+    
+    var body: some View // главный вью
     {
         NavigationView{
-            List{
-                ForEach(items.filter{$0.isOnDeleted == false}) {  Item in
-                    Button(action: {
+            List{ // начало оформления списка
+                ForEach(SortedItems.filter{$0.isOnDeleted == false}) {  Item in // для каждого предмета в списке SortedItems применяем эти оформления
+                    Button(action: { //начало действий при нажатии кнопки
                         activeSheet = .second
                         hernya.sharedUuid = Item.itemid
                         hernya.sharedSerialNum = Item.serialNum ?? ""
                         hernya.sharedAmount = Item.amount
-                    }, label:
+                    }, label: //конец действий при нажатии кнопки и начало лейбла
                     {
                     VStack(alignment: .leading){
                         Text("\(Item.serialNum ?? "")")
@@ -46,10 +45,12 @@ struct ViewPage: View//
                         Text("Удалено?: \(String(Item.isOnDeleted))")
                             .font(.subheadline)
                     }.frame(height: 70)
-                    })}
-                .onDelete { indexSet in
+                    }/*конец лейбла*/ ) /*конец кнопки*/ } /*конец оформлений*/
+                .onDelete { indexSet in //отклик и обработка удаления предмета в списке начало
                     for index in indexSet {
-                        viewContext.delete(SortedItems[index])
+                        SortedItems[index].isOnDeleted = true
+                        hernya.deletedItemsList = items.filter{$0.isOnDeleted == true}
+//                        viewContext.delete(SortedItems[index])
                     }
                     do {
                         try viewContext.save()
@@ -66,38 +67,32 @@ struct ViewPage: View//
                     } catch {
                         print(error.localizedDescription)
                     }
-                }
-                }
-            .listStyle(PlainListStyle())
-            .navigationBarTitle("Обзор", displayMode: .automatic)
-            .navigationBarItems(leading: Button(action:{
-                sortSheet.toggle()
-            }, label: {
-                Text("Сортировка")
-            }), trailing: Button(action: {activeSheet = .first}, label: {
-                Image(systemName: "plus.circle")
-                    .imageScale(.large)
-            }))
-            .sheet(item: $activeSheet) { item in
+                } //отклик и обработка удаления предмета в спике конец
+            } // конец оформления списка
+            .listStyle(PlainListStyle())//модификатор для списка
+            .navigationBarTitle("Обзор", displayMode: .automatic)//настройки для топ бара навигации
+            .navigationBarItems(leading: Button(action:{sortSheet.toggle()},label: {Text("Сортировка")}),//первая строчка кнопки в топ баре добавления нового предмета
+            trailing: Button(action: {activeSheet = .first}, label: {Image(systemName: "plus.circle").imageScale(.large)}))//вторая строчка кнопки в топ баре добавления нового предмета
+            .sheet(item: $activeSheet) { item in //шит с добавлением, или же обзором предмета
                 switch item {
-                case .first:
+                case .first: // добавление предмета
                     NewItemSheet(TypeOfView: 1)
                         .onDisappear(perform: {
                             hernya.deletedItemsList = items.filter{$0.isOnDeleted == true}
                         })
-                case .second:
+                case .second: // обзор предмета
                     NewItemSheet(TypeOfView: 2, uuid: hernya.sharedUuid, serialNum: hernya.sharedSerialNum, amountInt: hernya.sharedAmount)
                 }
-            }
-            .actionSheet(isPresented: $sortSheet) {
+            } // конец шита с добавлением или обзором
+            .actionSheet(isPresented: $sortSheet) { //ЭкшонЩит с типами сортировок
                 ActionSheet(title: Text("Сортировать по"), buttons: [
                     .default(Text("Кол-во возрастание")) {forSorting(Type: 1)},
                     .default(Text("Кол-во убывание")) {forSorting(Type: 2)},
                     .default(Text("По Алфавиту")) {forSorting(Type: 3)},
                     .cancel()
                 ])
-            }
-        }.onAppear{
+            } // конец экшон щита
+        }.onAppear{ // инициализируем списки и сортируем при запуске
             hernya.deletedItemsList = items.filter{$0.isOnDeleted == true}
             switch typeOfSorting{
             case 1:
@@ -109,10 +104,10 @@ struct ViewPage: View//
             default:
                 print("gg")
             }
-        }
-    }
-    func forSorting(Type: Int){
-        switch Type{
+        } // конец инициализации списков
+    }// конец главного вью
+    func forSorting(Type: Int){ // функция для сортировки отображаемого на экране списка начало
+        switch Type{ // свитч для определения типа сортировки начало
         case 1: // возрастание количества
             typeOfSorting = 1
             SortedItems = items.sorted(by: {$0.amount < $1.amount})
@@ -124,13 +119,13 @@ struct ViewPage: View//
             SortedItems = items.sorted(by: {$0.serialNum! < $1.serialNum!})
         default:
             print("yopta")
-        }
-    }
-}
+        }//свитч для определения типа сортировки конец
+    }// функция для сортировки отображаемого на экране списка конец
+} // конец главной структуры
 
-struct hernya{
+struct hernya{ // херня начало
     static var sharedUuid: UUID?
     static var sharedSerialNum = ""
     static var sharedAmount: Int64 = 1
     static var deletedItemsList:[Item] = []
-}
+} // херня конец
