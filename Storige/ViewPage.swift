@@ -50,11 +50,6 @@ struct ViewPage: View{ // начало главной структуры
                 .onDelete { indexSet in //отклик и обработка удаления предмета в списке начало
                     for index in indexSet {
                         updateOrder(item: sortedItems[index])
-//                        sortedItems = fetchedItems.filter{$0.isOnDeleted == false}
-//                        hernya.deletedItemsList = items.filter{$0.isOnDeleted == true}
-//                        SortedItems[index].isOnDeleted = true
-//                        hernya.deletedItemsList = items.filter{$0.isOnDeleted == true}
-//                        viewContext.delete(SortedItems[index])
                         updateArrays()
                         }
                     do {
@@ -89,9 +84,6 @@ struct ViewPage: View{ // начало главной структуры
             } // конец экшон щита
         } // обертка для невигейшн вью конец
         .onAppear{ // инициализируем списки и сортируем при запуске
-//            fetchedItems = items.sorted(by: {$0.serialNum! < $1.serialNum!})
-//            sortedItems = fetchedItems.filter{$0.isOnDeleted == false}
-//            hernya.deletedItemsList = items.filter{$0.isOnDeleted == true}
             updateArrays()
         } // конец инициализации списков
     }// конец главного вью
