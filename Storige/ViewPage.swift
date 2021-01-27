@@ -45,7 +45,7 @@ struct ViewPage: View{ // начало главной структуры
                             .font(.subheadline)
                         Text("Удалено?: \(String(Item.isOnDeleted))")
                             .font(.subheadline)
-                    }.frame(height: 70)// конец визуальной оболочки для кнопки и модификатор с ограничителем высоты
+                    }// конец визуальной оболочки для кнопки и модификатор с ограничителем высоты
                     }/*конец лейбла*/ ) /*конец кнопки*/ } /*конец оформлений*/
                 .onDelete { indexSet in //отклик и обработка удаления предмета в списке начало
                     for index in indexSet {
@@ -83,9 +83,8 @@ struct ViewPage: View{ // начало главной структуры
                 ])
             } // конец экшон щита
         } // обертка для невигейшн вью конец
-        .onAppear{ // инициализируем списки и сортируем при запуске
-            updateArrays()
-        } // конец инициализации списков
+        .onAppear{updateArrays()} // конец инициализации списков
+        .onDisappear{updateArrays()}
     }// конец главного вью
     func forSorting(Type: Int){ // функция для сортировки отображаемого на экране списка начало
         switch Type{ // свитч для определения типа сортировки начало
@@ -103,7 +102,6 @@ struct ViewPage: View{ // начало главной структуры
         }//свитч для определения типа сортировки конец
     }// функция для сортировки отображаемого на экране списка конец
     func updateOrder(item: Item) {
-        print(item)
         let BoughtToggle = true
         viewContext.performAndWait {
             item.isOnDeleted = BoughtToggle
@@ -113,7 +111,6 @@ struct ViewPage: View{ // начало главной структуры
     func updateArrays(){
         fetchedItems = items.sorted(by: {$0.serialNum! < $1.serialNum!})
         sortedItems = fetchedItems.filter{$0.isOnDeleted == false}
-        hernya.deletedItemsList = items.filter{$0.isOnDeleted == true}
     }
 } // конец главной структуры
 
@@ -121,5 +118,4 @@ struct hernya{ // херня начало
     static var sharedUuid: UUID?
     static var sharedSerialNum = ""
     static var sharedAmount: Int64 = 1
-    static var deletedItemsList:[Item] = []
 } // херня конец

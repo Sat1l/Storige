@@ -19,7 +19,7 @@ struct ContentView: View {
                 Image(systemName: "qrcode.viewfinder")
                 Text("Сканер")
             }.tag(1)
-            SettingsPage().tabItem {
+        SettingsPage().tabItem {
                 Image(systemName: "gear")
                 Text("Настройки")
             }.tag(2)

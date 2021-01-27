@@ -8,10 +8,13 @@
 import SwiftUI
 
 struct DeletedItemsList: View {
+    @FetchRequest(entity: Item.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Item.serialNum, ascending: true)])
+    var deletedItems: FetchedResults<Item>
+    @State var fetchedItemsForDeleting:[Item] = []
     @Environment(\.managedObjectContext) private var viewContext
     var body: some View {
             List(){
-                ForEach(hernya.deletedItemsList) {  Item in
+                ForEach(fetchedItemsForDeleting) {  Item in
                         Button(action: {
                             hernya.sharedUuid = Item.itemid
                             hernya.sharedSerialNum = Item.serialNum ?? ""
@@ -23,12 +26,15 @@ struct DeletedItemsList: View {
                                 .font(.headline)
                             Text("Кол-во: \(Item.amount)")
                                 .font(.subheadline)
-                            Text("Кол-во: \(Item.itemid!)")
+                            Text("id: \(Item.itemid!)")
                                 .font(.subheadline)
                             Text("Удалено?: \(String(Item.isOnDeleted))")
                                 .font(.subheadline)
-                        }.frame(height: 70)
+                        }
                         })}
+            }
+            .onAppear{
+                fetchedItemsForDeleting = deletedItems.filter{$0.isOnDeleted == true}.sorted(by: {$0.creationDate! < $1.creationDate!})
             }
             .navigationBarTitle("text", displayMode: .inline)
     }
