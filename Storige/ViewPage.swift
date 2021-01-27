@@ -20,14 +20,15 @@ struct ViewPage: View{ // начало главной структуры
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(entity: Item.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Item.serialNum, ascending: true)])
     public var items: FetchedResults<Item>
-    @State var SortedItems:[Item] = []
+    @State var sortedItems:[Item] = []
+    @State var fetchedItems:[Item] = []
     @State var typeOfSorting: Int8 = 1
     
     var body: some View // главный вью
     {
         NavigationView{ // обертка для невигейшн вью начало
             List{ // начало оформления списка
-                ForEach(SortedItems.filter{$0.isOnDeleted == false}) {  Item in // для каждого предмета в списке SortedItems применяем эти оформления
+                ForEach(sortedItems) {  Item in // для каждого предмета в списке SortedItems применяем эти оформления
                     Button(action: { //начало действий при нажатии кнопки
                         activeSheet = .second // вызываем шит с подробностями об объекте
                         hernya.sharedUuid = Item.itemid
@@ -48,22 +49,16 @@ struct ViewPage: View{ // начало главной структуры
                     }/*конец лейбла*/ ) /*конец кнопки*/ } /*конец оформлений*/
                 .onDelete { indexSet in //отклик и обработка удаления предмета в списке начало
                     for index in indexSet {
-                        SortedItems[index].isOnDeleted = true
-                        hernya.deletedItemsList = items.filter{$0.isOnDeleted == true}
+                        updateOrder(item: sortedItems[index])
+//                        sortedItems = fetchedItems.filter{$0.isOnDeleted == false}
+//                        hernya.deletedItemsList = items.filter{$0.isOnDeleted == true}
+//                        SortedItems[index].isOnDeleted = true
+//                        hernya.deletedItemsList = items.filter{$0.isOnDeleted == true}
 //                        viewContext.delete(SortedItems[index])
+                        updateArrays()
                         }
                     do {
                         try viewContext.save()
-                        switch typeOfSorting{
-                        case 1:
-                            forSorting(Type: 1)
-                        case 2:
-                            forSorting(Type: 2)
-                        case 3:
-                            forSorting(Type: 3)
-                        default:
-                            print("")
-                        }
                     } catch {
                         print(error.localizedDescription)
                     }
@@ -78,7 +73,7 @@ struct ViewPage: View{ // начало главной структуры
                 case .first: // добавление предмета
                     NewItemSheet(TypeOfView: 1)
                         .onDisappear(perform: {
-                            hernya.deletedItemsList = items.filter{$0.isOnDeleted == true}
+                            updateArrays()
                         })
                 case .second: // обзор предмета
                     NewItemSheet(TypeOfView: 2, uuid: hernya.sharedUuid, serialNum: hernya.sharedSerialNum, amountInt: hernya.sharedAmount)
@@ -94,24 +89,40 @@ struct ViewPage: View{ // начало главной структуры
             } // конец экшон щита
         } // обертка для невигейшн вью конец
         .onAppear{ // инициализируем списки и сортируем при запуске
-            hernya.deletedItemsList = items.filter{$0.isOnDeleted == true}
+//            fetchedItems = items.sorted(by: {$0.serialNum! < $1.serialNum!})
+//            sortedItems = fetchedItems.filter{$0.isOnDeleted == false}
+//            hernya.deletedItemsList = items.filter{$0.isOnDeleted == true}
+            updateArrays()
         } // конец инициализации списков
     }// конец главного вью
     func forSorting(Type: Int){ // функция для сортировки отображаемого на экране списка начало
         switch Type{ // свитч для определения типа сортировки начало
         case 1: // возрастание количества
             typeOfSorting = 1
-            SortedItems = items.sorted(by: {$0.amount < $1.amount})
+            sortedItems = items.filter{$0.isOnDeleted == false}.sorted(by: {$0.amount < $1.amount})
         case 2: // убывание количества
             typeOfSorting = 2
-            SortedItems = items.sorted(by: {$0.amount > $1.amount})
+            sortedItems = items.filter{$0.isOnDeleted == false}.sorted(by: {$0.amount > $1.amount})
         case 3: //убывание по алфавиту
             typeOfSorting = 3
-            SortedItems = items.sorted(by: {$0.serialNum! < $1.serialNum!})
+            sortedItems = items.filter{$0.isOnDeleted == false}.sorted(by: {$0.serialNum! < $1.serialNum!})
         default:
             print("yopta")
         }//свитч для определения типа сортировки конец
     }// функция для сортировки отображаемого на экране списка конец
+    func updateOrder(item: Item) {
+        print(item)
+        let BoughtToggle = true
+        viewContext.performAndWait {
+            item.isOnDeleted = BoughtToggle
+            try? viewContext.save()
+        }
+    }
+    func updateArrays(){
+        fetchedItems = items.sorted(by: {$0.serialNum! < $1.serialNum!})
+        sortedItems = fetchedItems.filter{$0.isOnDeleted == false}
+        hernya.deletedItemsList = items.filter{$0.isOnDeleted == true}
+    }
 } // конец главной структуры
 
 struct hernya{ // херня начало
