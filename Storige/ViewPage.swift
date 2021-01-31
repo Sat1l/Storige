@@ -46,17 +46,17 @@ struct ViewPage: View{ // начало главной структуры
                         Text("Удалено?: \(String(Item.isOnDeleted))")
                             .font(.subheadline)
                     }// конец визуальной оболочки для кнопки и модификатор с ограничителем высоты
-                    }/*конец лейбла*/ ) /*конец кнопки*/ } /*конец оформлений*/
+                    } /*конец лейбла*/ ) /*конец кнопки*/ } /*конец оформлений*/
                 .onDelete { indexSet in //отклик и обработка удаления предмета в списке начало
                     for index in indexSet {
                         updateOrder(item: sortedItems[index])
-                        updateArrays()
                         }
                     do {
                         try viewContext.save()
                     } catch {
                         print(error.localizedDescription)
                     }
+                    updateArrays()
                 } //отклик и обработка удаления предмета в спике конец
             } // конец оформления списка
             .listStyle(PlainListStyle())//модификатор для списка

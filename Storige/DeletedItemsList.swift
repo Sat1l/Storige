@@ -32,10 +32,24 @@ struct DeletedItemsList: View {
                                 .font(.subheadline)
                         }
                         })}
+                    .onDelete { indexSet in //отклик и обработка удаления предмета в списке начало
+                        for index in indexSet {
+                            viewContext.delete(fetchedItemsForDeleting[index])
+                            }
+                        do {
+                            try viewContext.save()
+                        } catch {
+                            print(error.localizedDescription)
+                        }
+                        updateArray()
+                    }
             }
             .onAppear{
-                fetchedItemsForDeleting = deletedItems.filter{$0.isOnDeleted == true}.sorted(by: {$0.creationDate! < $1.creationDate!})
+                updateArray()
             }
             .navigationBarTitle("text", displayMode: .inline)
+    }
+    func updateArray(){
+        fetchedItemsForDeleting = deletedItems.filter{$0.isOnDeleted == true}.sorted(by: {$0.creationDate! < $1.creationDate!})
     }
 }
