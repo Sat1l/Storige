@@ -15,20 +15,17 @@ struct NewItemSheet: View
     let filter = CIFilter.qrCodeGenerator()
     var uuid: UUID?
     var uuidString: String? {return uuid?.uuidString}
-    @State var dateA: Date?
     @State var serialNum = ""
+    @State var journalNum = ""
     @State var amount = ""
     @State var amountInt: Int64 = 1
     @State var items: [Any] = []
     @State var sharing = false
-    let now = Date()
     @Environment(\.managedObjectContext) private var viewContext
     @Environment (\.presentationMode) var presentationMode
     
     var body: some View
     {NavigationView{
-            switch TypeOfView{
-            case 1: //добавление нового объекта
             Form
             {
                 TextField("Название", text: $serialNum)
@@ -36,6 +33,13 @@ struct NewItemSheet: View
                     .onReceive(Just(serialNum)) { inputValue in
                                 if inputValue.count > 100 {
                                     self.serialNum.removeLast()
+                                }
+                    }
+                TextField("Журнальный номер", text: $journalNum)
+                    .keyboardType(.default)
+                    .onReceive(Just(journalNum)) { inputValue in
+                                if inputValue.count > 30 {
+                                    self.journalNum.removeLast()
                                 }
                     }
                 TextField("Количество", text: $amount)
@@ -52,11 +56,12 @@ struct NewItemSheet: View
                 .navigationBarItems(trailing: Button(action: {
                 let newItem = Item(context: viewContext)
                 newItem.serialNum = self.serialNum
-                self.amountInt = Int64(amount)!
+                self.amountInt = Int64(amount) ?? 1
                 newItem.amount = self.amountInt
                 newItem.itemid = UUID()
                 newItem.creationDate = Date()
                 newItem.isOnDeleted = false
+                newItem.journalNum = self.journalNum
                 do{
                     try viewContext.save()
                     print("item saved")
@@ -69,35 +74,6 @@ struct NewItemSheet: View
                 Text("Добавить")
             }))
             }.navigationBarTitle("Новый объект", displayMode: .inline)
-            case 2: //детали об объекте
-                Form{
-                    Section(header: Text("Наименование: ")){Text(serialNum)}
-                    Section(header: Text("Количество: ")){Text(String(amountInt))}
-                Section(header: HStack{
-                        Text("QR код")
-                        Spacer()
-                        Button(action: {
-                            items.removeAll()
-                            items.append(createQrCodeImage(uuidString!))
-                            shareButton()
-                        }, label: {
-                                Text("Поделиться")
-                                .foregroundColor(.blue)
-                        })
-                    }){
-                    HStack{
-                    Image(uiImage: createQrCodeImage(uuidString!))
-                        .interpolation(.none)
-                        .resizable()
-                        .scaledToFit()
-                    }
-                    .padding(.horizontal)
-                    }
-                }
-                .navigationBarTitle(serialNum, displayMode: .inline)
-            default:
-                Text("hello")
-            }
         
     }
 }

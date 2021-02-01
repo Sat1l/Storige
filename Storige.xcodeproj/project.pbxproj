@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		632A07F8257F9E6C00F89AE4 /* NewItemSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632A07F7257F9E6C00F89AE4 /* NewItemSheet.swift */; };
 		634561D5257F23DC0056EE83 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634561D4257F23DC0056EE83 /* Persistence.swift */; };
+		636C3C5C25C6E31F00A725E0 /* DetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636C3C5B25C6E31F00A725E0 /* DetailedView.swift */; };
 		637A61A7258519A4002A7E23 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 637A61A6258519A4002A7E23 /* CodeScanner */; };
 		639F782525771C95007FFCED /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639F782425771C95007FFCED /* ContentView.swift */; };
 		639F782725771C96007FFCED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 639F782625771C96007FFCED /* Assets.xcassets */; };
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		632A07F7257F9E6C00F89AE4 /* NewItemSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItemSheet.swift; sourceTree = "<group>"; };
 		634561D4257F23DC0056EE83 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		636C3C5B25C6E31F00A725E0 /* DetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedView.swift; sourceTree = "<group>"; };
 		639F781F25771C95007FFCED /* Storige.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Storige.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		639F782425771C95007FFCED /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		639F782625771C96007FFCED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 			children = (
 				632A07F7257F9E6C00F89AE4 /* NewItemSheet.swift */,
 				63F17E652578ACCB00D0E121 /* ViewPage.swift */,
+				636C3C5B25C6E31F00A725E0 /* DetailedView.swift */,
 			);
 			name = " ViewTab";
 			sourceTree = "<group>";
@@ -215,6 +218,7 @@
 				63D75CAC257E094D0037B46E /* Storige.xcdatamodeld in Sources */,
 				63F17E8C2578CF4100D0E121 /* StorigeApp.swift in Sources */,
 				63B593202582F36E001697B4 /* CheckOutPage.swift in Sources */,
+				636C3C5C25C6E31F00A725E0 /* DetailedView.swift in Sources */,
 				632A07F8257F9E6C00F89AE4 /* NewItemSheet.swift in Sources */,
 				63B43F9D25BC2B230030076E /* DeletedItemsList.swift in Sources */,
 				63F17E662578ACCB00D0E121 /* ViewPage.swift in Sources */,

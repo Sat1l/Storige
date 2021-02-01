@@ -76,10 +76,6 @@ struct ViewPage: View{ // начало главной структуры
                             .font(.headline)
                         Text("Кол-во: \(Item.amount)")
                             .font(.subheadline)
-                        Text("Айдишник: \(Item.itemid!)")
-                            .font(.subheadline)
-                        Text("Удалено?: \(String(Item.isOnDeleted))")
-                            .font(.subheadline)
                     }// конец визуальной оболочки для кнопки и модификатор с ограничителем высоты
                     } /*конец лейбла*/ ) /*конец кнопки*/ } /*конец оформлений*/
                 .onDelete { indexSet in //отклик и обработка удаления предмета в списке начало
@@ -108,7 +104,7 @@ struct ViewPage: View{ // начало главной структуры
                             updateArrays()
                         })
                 case .second: // обзор предмета
-                    NewItemSheet(TypeOfView: 2, uuid: hernya.sharedUuid, serialNum: hernya.sharedSerialNum, amountInt: hernya.sharedAmount)
+                    DetailedView(uuid: hernya.sharedUuid, serialNum: hernya.sharedSerialNum, amountInt: hernya.sharedAmount)
                 }// свитч отслеживающий какой показывать - новый или обзор конец
             } // конец шита с добавлением или обзором
             .actionSheet(isPresented: $sortSheet) { //ЭкшонЩит с типами сортировок

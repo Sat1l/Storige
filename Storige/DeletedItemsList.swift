@@ -26,10 +26,6 @@ struct DeletedItemsList: View {
                                 .font(.headline)
                             Text("Кол-во: \(Item.amount)")
                                 .font(.subheadline)
-                            Text("id: \(Item.itemid!)")
-                                .font(.subheadline)
-                            Text("Удалено?: \(String(Item.isOnDeleted))")
-                                .font(.subheadline)
                         }
                         })}
                     .onDelete { indexSet in //отклик и обработка удаления предмета в списке начало
