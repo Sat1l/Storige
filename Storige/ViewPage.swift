@@ -93,7 +93,6 @@ struct ViewPage: View{ // начало главной структуры
             }
             .listStyle(PlainListStyle())//модификатор для списка
             .navigationBarTitle("Обзор", displayMode: .automatic)//настройки для топ бара навигации
-            .resignKeyboardOnDragGesture()
             .navigationBarItems(leading: Button(action:{sortSheet.toggle()},label: {Text("Сортировка")}),//первая строчка кнопки в топ баре добавления нового предмета
             trailing: Button(action: {activeSheet = .first}, label: {Image(systemName: "plus.circle").imageScale(.large)}))//вторая строчка кнопки в топ баре добавления нового предмета
             .sheet(item: $activeSheet) { item in //шит с добавлением, или же обзором предмета
