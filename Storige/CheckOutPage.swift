@@ -33,18 +33,12 @@ struct CheckOutPage: View {
             switch result {
             case .success(let code):
                 print(code)
-                var uuid = UUID(uuidString: code)
-//                let firstLetter = Character(String(code.prefix(1)))
-//                switch firstLetter.isNumber {
-//                case true:
-//                    firstLetter.wholeNumberValue! >= 5 ? print("decrease number") : print("increase number")
-//                case false:
-//                    firstLetter.uppercased() <= "N" ? print("increase alphabett") : print("decrease alphabet")
-//                }
+                guard var uuid = UUID(uuidString: code) else { return }
                 for Item in items{
                     if uuid == Item.itemid{
                         hernya.sharedUuid = Item.itemid
                         hernya.sharedSerialNum = Item.serialNum ?? ""
+                        hernya.sharedJournalNum = Item.journalNum ?? ""
                         hernya.sharedAmount = Item.amount
                         showingActionSheet = true
                         break}
@@ -65,6 +59,6 @@ struct CheckOutPage: View {
             ])
         }
         .sheet(isPresented: $showFoundItemSheet, content: {
-                DetailedView(uuid: hernya.sharedUuid, serialNum: hernya.sharedSerialNum, amountInt: hernya.sharedAmount)})
+                DetailedView(uuid: hernya.sharedUuid, serialNum: hernya.sharedSerialNum, journalNum: hernya.sharedJournalNum, amountInt: hernya.sharedAmount)})
         }
 }

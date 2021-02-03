@@ -54,7 +54,7 @@ struct DeletedItemsList: View {
                 }))
             .actionSheet(isPresented: $showingAlert) {
                 ActionSheet(title: Text("эти объекты будут удалены без возможности восстанловления"),  buttons: [
-                    .default(Text("Удалить")) {
+                    .default(Text("Удалить")) { //NOT WORKING! DANGER ZONE!
                         for item in deletedItems{
                         if item.isOnDeleted == true{
                             viewContext.delete(item)
