@@ -25,11 +25,13 @@ struct ViewPage: View{ // начало главной структуры
     @State var typeOfSorting: Int8 = 1
     @State private var showCancelButton: Bool = false
     @State private var searchText = ""
-    
+    @State var selected = false
+
     var body: some View // главный вью
     {
         NavigationView{// обертка для невигейшн вью начало
             VStack{
+                VStack{
                 HStack {
                     HStack {
                         Image(systemName: "magnifyingglass")
@@ -60,14 +62,23 @@ struct ViewPage: View{ // начало главной структуры
                         .foregroundColor(Color(.systemBlue))
                     }
                 }
+                    if showCancelButton{
+                        Picker(selection: $selected, label: Text(""), content: {
+                                        Text("Название").tag(false)
+                                        Text("Журнальный номер").tag(true)
+                        }).pickerStyle(SegmentedPickerStyle())
+                    }
+
+                }
                 .padding(.horizontal)
                 .navigationBarHidden(showCancelButton)
             List{ // начало оформления списка
-                ForEach(sortedItems.filter{$0.serialNum!.hasPrefix(searchText) || searchText == ""}) {  Item in // для каждого предмета в списке SortedItems применяем эти оформления
+                ForEach( selected ? sortedItems.filter{$0.journalNum!.hasPrefix(searchText) || searchText == ""} : sortedItems.filter{$0.serialNum!.hasPrefix(searchText) || searchText == ""}) {  Item in // для каждого предмета в списке SortedItems применяем эти оформления
                     Button(action: { //начало действий при нажатии кнопки
                         activeSheet = .second // вызываем шит с подробностями об объекте
                         hernya.sharedUuid = Item.itemid
                         hernya.sharedSerialNum = Item.serialNum ?? ""
+                        hernya.sharedJournalNum = Item.journalNum ?? ""
                         hernya.sharedAmount = Item.amount
                     }, label: //конец действий при нажатии кнопки и начало лейбла
                     {
@@ -75,6 +86,8 @@ struct ViewPage: View{ // начало главной структуры
                         Text("\(Item.serialNum ?? "")")
                             .font(.headline)
                         Text("Кол-во: \(Item.amount)")
+                            .font(.subheadline)
+                        Text("Журнальный номер: \(Item.journalNum ?? "отсутствует")")
                             .font(.subheadline)
                     }// конец визуальной оболочки для кнопки и модификатор с ограничителем высоты
                     } /*конец лейбла*/ ) /*конец кнопки*/ } /*конец оформлений*/
@@ -98,12 +111,12 @@ struct ViewPage: View{ // начало главной структуры
             .sheet(item: $activeSheet) { item in //шит с добавлением, или же обзором предмета
                 switch item { // свитч отслеживающий какой показывать - новый или обзор начало
                 case .first: // добавление предмета
-                    NewItemSheet(TypeOfView: 1)
+                    NewItemSheet()
                         .onDisappear(perform: {
                             updateArrays()
                         })
                 case .second: // обзор предмета
-                    DetailedView(uuid: hernya.sharedUuid, serialNum: hernya.sharedSerialNum, amountInt: hernya.sharedAmount)
+                    DetailedView(uuid: hernya.sharedUuid, serialNum: hernya.sharedSerialNum, journalNum: hernya.sharedJournalNum, amountInt: hernya.sharedAmount)
                 }// свитч отслеживающий какой показывать - новый или обзор конец
             } // конец шита с добавлением или обзором
             .actionSheet(isPresented: $sortSheet) { //ЭкшонЩит с типами сортировок
@@ -150,6 +163,7 @@ struct hernya{ // херня начало
     static var sharedUuid: UUID?
     static var sharedSerialNum = ""
     static var sharedAmount: Int64 = 1
+    static var sharedJournalNum = ""
 } // херня конец
 
 extension UIApplication {

@@ -10,9 +10,7 @@ import Combine
 import CoreImage.CIFilterBuiltins
 
 struct NewItemSheet: View
-{
-    @State var TypeOfView: UInt8 // 1 - new item | 2 - view item | 3 - edit item
-    let filter = CIFilter.qrCodeGenerator()
+{    let filter = CIFilter.qrCodeGenerator()
     var uuid: UUID?
     var uuidString: String? {return uuid?.uuidString}
     @State var serialNum = ""

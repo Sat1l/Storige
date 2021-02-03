@@ -65,6 +65,6 @@ struct CheckOutPage: View {
             ])
         }
         .sheet(isPresented: $showFoundItemSheet, content: {
-                NewItemSheet(TypeOfView: 2, uuid: hernya.sharedUuid, serialNum: hernya.sharedSerialNum, amountInt: hernya.sharedAmount)})
+                DetailedView(uuid: hernya.sharedUuid, serialNum: hernya.sharedSerialNum, amountInt: hernya.sharedAmount)})
         }
 }

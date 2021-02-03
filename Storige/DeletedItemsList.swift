@@ -44,6 +44,12 @@ struct DeletedItemsList: View {
                 updateArray()
             }
             .navigationBarTitle("text", displayMode: .inline)
+            .navigationBarItems(trailing:
+                Button(action: {
+                        print("zalupa")
+                }, label: {
+                    Text("dumpAll")
+                }))
     }
     func updateArray(){
         fetchedItemsForDeleting = deletedItems.filter{$0.isOnDeleted == true}.sorted(by: {$0.creationDate! < $1.creationDate!})
