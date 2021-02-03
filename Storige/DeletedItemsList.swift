@@ -12,8 +12,10 @@ struct DeletedItemsList: View {
     var deletedItems: FetchedResults<Item>
     @State var fetchedItemsForDeleting:[Item] = []
     @Environment(\.managedObjectContext) private var viewContext
+    @State private var showingAlert = false
     var body: some View {
-            List(){
+            
+        List(){
                 ForEach(fetchedItemsForDeleting) {  Item in
                         Button(action: {
                             hernya.sharedUuid = Item.itemid
@@ -46,10 +48,28 @@ struct DeletedItemsList: View {
             .navigationBarTitle("text", displayMode: .inline)
             .navigationBarItems(trailing:
                 Button(action: {
-                        print("zalupa")
+                    self.showingAlert = true
                 }, label: {
                     Text("dumpAll")
                 }))
+            .actionSheet(isPresented: $showingAlert) {
+                ActionSheet(title: Text("эти объекты будут удалены без возможности восстанловления"),  buttons: [
+                    .default(Text("Удалить")) {
+                        for item in deletedItems{
+                        if item.isOnDeleted == true{
+                            viewContext.delete(item)
+                        }
+                        }
+                        do {
+                            try viewContext.save()
+                        } catch {
+                            print(error.localizedDescription)
+                        }
+                        updateArray()
+                    },
+                    .cancel()
+                ])
+            }
     }
     func updateArray(){
         fetchedItemsForDeleting = deletedItems.filter{$0.isOnDeleted == true}.sorted(by: {$0.creationDate! < $1.creationDate!})

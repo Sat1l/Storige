@@ -26,12 +26,9 @@ struct SettingsPage: View
                         .sheet(isPresented: $isShowingMailView) {MailView(result: self.$result)}
                     Button(action: {shareButton()}){Text("Рассказать друзьям")}
                 }
-                Text("Выйти из аккаунта").foregroundColor(.red)
-                Section{
                     NavigationLink(destination: DeletedItemsList()){
-                        Text("gg")
+                        Text("удалённые предеметы")
                     }
-                }
             }.navigationBarTitle("Настройки", displayMode: .automatic)
         }
     }

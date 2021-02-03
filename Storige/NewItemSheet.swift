@@ -51,7 +51,9 @@ struct NewItemSheet: View
                             self.amount.removeLast()
                         }
                     }
-                .navigationBarItems(trailing: Button(action: {
+                .navigationBarItems(trailing:
+                Button(action: {
+                    if serialNum != "" {
                 let newItem = Item(context: viewContext)
                 newItem.serialNum = self.serialNum
                 self.amountInt = Int64(amount) ?? 1
@@ -68,9 +70,10 @@ struct NewItemSheet: View
                 catch{
                     print(error.localizedDescription)
                 }
-            }, label: {
+                    }}, label: {
                 Text("Добавить")
-            }))
+                    }) .disabled(serialNum.isEmpty || journalNum.isEmpty)
+                )
             }.navigationBarTitle("Новый объект", displayMode: .inline)
         
     }
