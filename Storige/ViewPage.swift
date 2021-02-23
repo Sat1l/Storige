@@ -13,8 +13,15 @@ enum ActiveSheet: Identifiable { // ответственно за переклю
     var id: Int {hashValue}
 }
 
+class ItemProperties: ObservableObject {
+    @Published var uuid: UUID?
+    @Published var serialNum = ""
+    @Published var amount: Int64 = 1
+    @Published var journalNum = ""
+}
+
 struct ViewPage: View{ // начало главной структуры
-    
+    @State var itemDetails = ItemProperties()
     @State var activeSheet: ActiveSheet?
     @State var sortSheet = false
     @Environment(\.managedObjectContext) private var viewContext
@@ -75,19 +82,19 @@ struct ViewPage: View{ // начало главной структуры
             List{ // начало оформления списка
                 ForEach( selected ? sortedItems.filter{$0.journalNum!.hasPrefix(searchText) || searchText == ""} : sortedItems.filter{$0.serialNum!.hasPrefix(searchText) || searchText == ""}) {  Item in // для каждого предмета в списке SortedItems применяем эти оформления
                     Button(action: { //начало действий при нажатии кнопки
+                        itemDetails.serialNum = Item.serialNum ?? ""
+                        itemDetails.journalNum = Item.journalNum ?? ""
+                        itemDetails.amount = Item.amount
+                        itemDetails.uuid = Item.itemid
                         activeSheet = .second // вызываем шит с подробностями об объекте
-                        hernya.sharedUuid = Item.itemid
-                        hernya.sharedSerialNum = Item.serialNum ?? ""
-                        hernya.sharedJournalNum = Item.journalNum ?? ""
-                        hernya.sharedAmount = Item.amount
                     }, label: //конец действий при нажатии кнопки и начало лейбла
                     {
                     VStack(alignment: .leading){ //визуальная оболочка для кнопки
                         Text("\(Item.serialNum ?? "")")
                             .font(.headline)
-                        Text("Кол-во: \(Item.amount)")
-                            .font(.subheadline)
                         Text("Журнальный номер: \(Item.journalNum ?? "отсутствует")")
+                            .font(.subheadline)
+                        Text("Кол-во: \(Item.amount)")
                             .font(.subheadline)
                     }// конец визуальной оболочки для кнопки и модификатор с ограничителем высоты
                     } /*конец лейбла*/ ) /*конец кнопки*/ } /*конец оформлений*/
@@ -116,7 +123,7 @@ struct ViewPage: View{ // начало главной структуры
                             updateArrays()
                         })
                 case .second: // обзор предмета
-                    DetailedView(uuid: hernya.sharedUuid, serialNum: hernya.sharedSerialNum, journalNum: hernya.sharedJournalNum, amountInt: hernya.sharedAmount)
+                    DetailedView()
                 }// свитч отслеживающий какой показывать - новый или обзор конец
             } // конец шита с добавлением или обзором
             .actionSheet(isPresented: $sortSheet) { //ЭкшонЩит с типами сортировок
@@ -130,6 +137,7 @@ struct ViewPage: View{ // начало главной структуры
         } // обертка для невигейшн вью конец
         .onAppear{updateArrays()} // конец инициализации списков
         .onDisappear{updateArrays()}
+        .environmentObject(itemDetails)
     }// конец главного вью
     func forSorting(Type: Int){ // функция для сортировки отображаемого на экране списка начало
         switch Type{ // свитч для определения типа сортировки начало
@@ -147,9 +155,8 @@ struct ViewPage: View{ // начало главной структуры
         }//свитч для определения типа сортировки конец
     }// функция для сортировки отображаемого на экране списка конец
     func updateOrder(item: Item) {
-        let BoughtToggle = true
         viewContext.performAndWait {
-            item.isOnDeleted = BoughtToggle
+            item.isOnDeleted = true
             try? viewContext.save()
         }
     }
@@ -165,6 +172,8 @@ struct hernya{ // херня начало
     static var sharedAmount: Int64 = 1
     static var sharedJournalNum = ""
 } // херня конец
+
+
 
 extension UIApplication {
     func endEditing(_ force: Bool) {

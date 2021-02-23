@@ -8,20 +8,17 @@
 import SwiftUI
 
 struct DetailedView: View {
-    let filter = CIFilter.qrCodeGenerator()
-    var uuid: UUID?
-    var uuidString: String? {return uuid?.uuidString}
-    @State var serialNum = ""
-    @State var journalNum = ""
-    @State var amount = ""
-    @State var amountInt: Int64 = 1
+    @EnvironmentObject var itemDetails: ItemProperties
     @State var items: [Any] = []
     @State var sharing = false
+    let filter = CIFilter.qrCodeGenerator()
+    var uuid: UUID?
+    var uuidString: String? {return itemDetails.uuid?.uuidString}
     var body: some View {NavigationView{
         Form{
-            Section(header: Text("Наименование: ")){Text(serialNum)}
-            Section(header: Text("Журнальный номер: ")){Text(journalNum)}
-            Section(header: Text("Количество: ")){Text(String(amountInt))}
+            Section(header: Text("Наименование: ")){Text(itemDetails.serialNum)}
+            Section(header: Text("Журнальный номер: ")){Text(itemDetails.journalNum)}
+            Section(header: Text("Количество: ")){Text(String(itemDetails.amount))}
         Section(header: HStack{
                 Text("QR код")
                 Spacer()
@@ -43,7 +40,10 @@ struct DetailedView: View {
             .padding(.horizontal)
             }
         }
-        .navigationBarTitle(serialNum, displayMode: .inline)
+        .navigationBarTitle(itemDetails.serialNum, displayMode: .inline)
+        .navigationBarItems(trailing:
+        Button(action:{print("22")},label: {Text("Изменить")})
+        )
     }
     }
     func shareButton() {
