@@ -6,19 +6,54 @@
 //
 
 import SwiftUI
+import Combine
 
 struct DetailedView: View {
     @EnvironmentObject var itemDetails: ItemProperties
     @State var items: [Any] = []
     @State var sharing = false
+    @State var isViewing = true
+    @State var amountText = ""
     let filter = CIFilter.qrCodeGenerator()
     var uuid: UUID?
     var uuidString: String? {return itemDetails.uuid?.uuidString}
     var body: some View {NavigationView{
         Form{
-            Section(header: Text("Наименование: ")){Text(itemDetails.serialNum)}
-            Section(header: Text("Журнальный номер: ")){Text(itemDetails.journalNum)}
-            Section(header: Text("Количество: ")){Text(String(itemDetails.amount))}
+            Section(header: Text("Наименование: ")){
+                TextField("Название", text: $itemDetails.serialNum)
+                    .keyboardType(.default)
+                    .onReceive(Just(itemDetails.serialNum)) { inputValue in
+                                if inputValue.count > 100 {
+                                self.itemDetails.serialNum.removeLast()
+                                }
+                    }
+                    .transition(.opacity)
+                    .disabled(isViewing)
+            }
+            Section(header: Text("Журнальный номер: ")){
+                TextField("Журнальный номер", text: $itemDetails.journalNum)
+                    .keyboardType(.default)
+                    .onReceive(Just(itemDetails.journalNum)) { inputValue in
+                                if inputValue.count > 30 {
+                                    self.itemDetails.journalNum.removeLast()
+                                }
+                    }
+                    .disabled(isViewing)
+            }
+//            Section(header: Text("Количество: ")){
+//                TextField("Количество", value: $amountText, formatter: NumberFormatter())
+//                    .keyboardType(.numberPad)
+//                    .onReceive(Just(amountText))
+//                    {
+//                        newValue in
+//                        let filtered = newValue.filter { "0123456789".contains($0) }
+//                        if filtered != newValue {self.amountText = filtered}
+//                        if newValue.count > 10 {
+//                            self.amountText.removeLast()
+//                        }
+//                        itemDetails.amount = Int64(amountText) ?? 0
+//                    }
+//            }
         Section(header: HStack{
                 Text("QR код")
                 Spacer()
@@ -41,10 +76,13 @@ struct DetailedView: View {
             }
         }
         .navigationBarTitle(itemDetails.serialNum, displayMode: .inline)
-        .navigationBarItems(trailing:
-        Button(action:{print("22")},label: {Text("Изменить")})
+        .navigationBarItems(leading:
+                                Button(action:{isViewing.toggle()},label: {Text(isViewing == true ? "Изменить":"Сохранить")})
         )
     }
+//    .onAppear(perform: {
+//                amountText = String(itemDetails.amount)
+//    })
     }
     func shareButton() {
         let av = UIActivityViewController(activityItems: items, applicationActivities: nil)

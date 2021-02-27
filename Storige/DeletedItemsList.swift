@@ -17,19 +17,13 @@ struct DeletedItemsList: View {
             
         List(){
                 ForEach(fetchedItemsForDeleting) {  Item in
-                        Button(action: {
-                            hernya.sharedUuid = Item.itemid
-                            hernya.sharedSerialNum = Item.serialNum ?? ""
-                            hernya.sharedAmount = Item.amount
-                        }, label:
-                        {
                         VStack(alignment: .leading){
                             Text("\(Item.serialNum ?? "")")
                                 .font(.headline)
                             Text("Кол-во: \(Item.amount)")
                                 .font(.subheadline)
                         }
-                        })}
+                        }
                     .onDelete { indexSet in //отклик и обработка удаления предмета в списке начало
                         for index in indexSet {
                             viewContext.delete(fetchedItemsForDeleting[index])

@@ -10,6 +10,7 @@ import CodeScanner
 import CoreData
 
 struct CheckOutPage: View {
+    @StateObject var itemDetails = ItemProperties()
     @State var showFoundItemSheet = false
     @State var showingActionSheet = false
     @State var showingRestoringAlert = false
@@ -36,17 +37,17 @@ struct CheckOutPage: View {
             switch result {
             case .success(let code):
                 print(code)
-                guard var uuid = UUID(uuidString: code) else { return }
+                guard let uuid = UUID(uuidString: code) else { return }
                 uuidToPass = uuid
                 for Item in ocherednoySpisokBl{
                     if uuid == Item.itemid{
                         if Item.isOnDeleted == true {
                             showingRestoringAlert = true
                         } else {
-                            hernya.sharedUuid = Item.itemid
-                            hernya.sharedSerialNum = Item.serialNum ?? ""
-                            hernya.sharedJournalNum = Item.journalNum ?? ""
-                            hernya.sharedAmount = Item.amount
+                            itemDetails.serialNum = Item.serialNum ?? ""
+                            itemDetails.journalNum = Item.journalNum ?? ""
+                            itemDetails.amount = Item.amount
+                            itemDetails.uuid = Item.itemid
                             showingActionSheet = true
                             break}
                         }
@@ -72,7 +73,7 @@ struct CheckOutPage: View {
             }))
         }
         .actionSheet(isPresented: $showingActionSheet){
-            ActionSheet(title: Text(hernya.sharedSerialNum), message: Text("Выберите действие"), buttons:[
+            ActionSheet(title: Text(itemDetails.serialNum), message: Text("Выберите действие"), buttons:[
                 .default(Text("Информация")){showFoundItemSheet = true},
                 .destructive(Text("удалить")){
                     print("da")
@@ -81,11 +82,28 @@ struct CheckOutPage: View {
             ])
         }
         .sheet(isPresented: $showFoundItemSheet, content: {
-                DetailedView()})
+                DetailedView()
+                    .onDisappear(perform: {
+                        for item in ocherednoySpisokBl{
+                            if uuidToPass == item.itemid{
+                                editItem(item: item)
+                                }
+                            }
+                    })
+        })
+        .environmentObject(itemDetails)
         }
     func recoverItem(item: Item) {
         viewContext.performAndWait {
             item.isOnDeleted = false
+            try? viewContext.save()
+        }
+    }
+    func editItem(item: Item) {
+        viewContext.performAndWait {
+            item.serialNum = itemDetails.serialNum
+            item.journalNum = itemDetails.journalNum
+            item.amount = itemDetails.amount
             try? viewContext.save()
         }
     }

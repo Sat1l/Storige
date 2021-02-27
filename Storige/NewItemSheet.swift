@@ -33,6 +33,7 @@ struct NewItemSheet: View
                                     self.serialNum.removeLast()
                                 }
                     }
+
                 TextField("Журнальный номер", text: $journalNum)
                     .keyboardType(.default)
                     .onReceive(Just(journalNum)) { inputValue in

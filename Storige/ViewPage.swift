@@ -21,19 +21,19 @@ class ItemProperties: ObservableObject {
 }
 
 struct ViewPage: View{ // начало главной структуры
-    @State var itemDetails = ItemProperties()
+    @StateObject var itemDetails = ItemProperties()
     @State var activeSheet: ActiveSheet?
     @State var sortSheet = false
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(entity: Item.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Item.serialNum, ascending: true)])
     public var items: FetchedResults<Item>
+    @State private var showCancelButton: Bool = false
+    @State private var searchText = ""
     @State var sortedItems:[Item] = []
     @State var fetchedItems:[Item] = []
     @State var typeOfSorting: Int8 = 1
-    @State private var showCancelButton: Bool = false
-    @State private var searchText = ""
+    @State var uuidToPass = UUID()
     @State var selected = false
-
     var body: some View // главный вью
     {
         NavigationView{// обертка для невигейшн вью начало
@@ -61,7 +61,7 @@ struct ViewPage: View{ // начало главной структуры
                     .cornerRadius(10.0)
 
                     if showCancelButton  {
-                        Button("Cancel") {
+                        Button("Отмена") {
                                 UIApplication.shared.endEditing(true) // this must be placed before the other commands here
                                 self.searchText = ""
                                 self.showCancelButton = false
@@ -86,6 +86,7 @@ struct ViewPage: View{ // начало главной структуры
                         itemDetails.journalNum = Item.journalNum ?? ""
                         itemDetails.amount = Item.amount
                         itemDetails.uuid = Item.itemid
+                        uuidToPass = Item.itemid!
                         activeSheet = .second // вызываем шит с подробностями об объекте
                     }, label: //конец действий при нажатии кнопки и начало лейбла
                     {
@@ -124,6 +125,15 @@ struct ViewPage: View{ // начало главной структуры
                         })
                 case .second: // обзор предмета
                     DetailedView()
+                        .onDisappear(perform: {
+                            print("ive dissapeared")
+                            for item in sortedItems{
+                                if uuidToPass == item.itemid{
+                                    editItem(item: item)
+                                    }
+                                }
+                            updateArrays()
+                        })
                 }// свитч отслеживающий какой показывать - новый или обзор конец
             } // конец шита с добавлением или обзором
             .actionSheet(isPresented: $sortSheet) { //ЭкшонЩит с типами сортировок
@@ -164,6 +174,14 @@ struct ViewPage: View{ // начало главной структуры
         fetchedItems = items.sorted(by: {$0.serialNum! < $1.serialNum!})
         sortedItems = fetchedItems.filter{$0.isOnDeleted == false}
     }
+    func editItem(item: Item) {
+        viewContext.performAndWait {
+            item.serialNum = itemDetails.serialNum
+            item.journalNum = itemDetails.journalNum
+            item.amount = itemDetails.amount
+            try? viewContext.save()
+        }
+    }
 } // конец главной структуры
 
 struct hernya{ // херня начало
@@ -172,8 +190,6 @@ struct hernya{ // херня начало
     static var sharedAmount: Int64 = 1
     static var sharedJournalNum = ""
 } // херня конец
-
-
 
 extension UIApplication {
     func endEditing(_ force: Bool) {
