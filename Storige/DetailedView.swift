@@ -77,7 +77,7 @@ struct DetailedView: View {
         }
         .navigationBarTitle(itemDetails.serialNum, displayMode: .inline)
         .navigationBarItems(leading:
-                                Button(action:{isViewing.toggle()},label: {Text(isViewing == true ? "Изменить":"Сохранить")})
+                                Button(action:{isViewing.toggle()},label: {Text(isViewing == true ? "Изменить":"Готово")})
         )
     }
 //    .onAppear(perform: {
