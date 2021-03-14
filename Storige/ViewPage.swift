@@ -74,10 +74,11 @@ struct ViewPage: View{ // начало главной структуры
                                         Text("Название").tag(false)
                                         Text("Журнальный номер").tag(true)
                         }).pickerStyle(SegmentedPickerStyle())
+                        
                     }
 
                 }
-                .padding(.horizontal)
+                .padding(.all, 10)
                 .navigationBarHidden(showCancelButton)
             List{ // начало оформления списка
                 ForEach( selected ? sortedItems.filter{$0.journalNum!.hasPrefix(searchText) || searchText == ""} : sortedItems.filter{$0.serialNum!.hasPrefix(searchText) || searchText == ""}) {  Item in // для каждого предмета в списке SortedItems применяем эти оформления
@@ -113,9 +114,9 @@ struct ViewPage: View{ // начало главной структуры
             } // конец оформления списка
             }
             .listStyle(PlainListStyle())//модификатор для списка
-            .navigationBarTitle("Обзор", displayMode: .automatic)//настройки для топ бара навигации
+            .navigationBarTitle("Обзор", displayMode: .inline)//настройки для топ бара навигации
             .navigationBarItems(leading: Button(action:{sortSheet.toggle()},label: {Text("Сортировка")}),//первая строчка кнопки в топ баре добавления нового предмета
-            trailing: Button(action: {activeSheet = .first}, label: {Image(systemName: "plus.circle").imageScale(.large)}))//вторая строчка кнопки в топ баре добавления нового предмета
+            trailing: Button(action: {activeSheet = .first}, label: {Text("Добавить")}))//вторая строчка кнопки в топ баре добавления нового предмета
             .sheet(item: $activeSheet) { item in //шит с добавлением, или же обзором предмета
                 switch item { // свитч отслеживающий какой показывать - новый или обзор начало
                 case .first: // добавление предмета

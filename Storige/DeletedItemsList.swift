@@ -14,7 +14,7 @@ struct DeletedItemsList: View {
     @Environment(\.managedObjectContext) private var viewContext
     @State private var showingAlert = false
     var body: some View {
-            
+        NavigationView(){
         List(){
                 ForEach(fetchedItemsForDeleting) {  Item in
                         VStack(alignment: .leading){
@@ -36,16 +36,17 @@ struct DeletedItemsList: View {
                         updateArray()
                     }
             }
-            .onAppear{
-                updateArray()
-            }
-            .navigationBarTitle("text", displayMode: .inline)
+        }
+        .navigationBarTitle("Удаленные предметы", displayMode: .automatic)
             .navigationBarItems(trailing:
                 Button(action: {
                     self.showingAlert = true
                 }, label: {
                     Text("dumpAll")
                 }))
+            .onAppear{
+                updateArray()
+            }
             .actionSheet(isPresented: $showingAlert) {
                 ActionSheet(title: Text("эти объекты будут удалены без возможности восстанловления"),  buttons: [
                     .default(Text("Удалить")) { //NOT WORKING! DANGER ZONE!

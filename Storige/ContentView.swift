@@ -15,13 +15,9 @@ struct ContentView: View {
                 Image(systemName: "shippingbox.fill")
                 Text("Обзор")
             }.tag(0)
-            CheckOutPage().tabItem {
-                Image(systemName: "qrcode.viewfinder")
-                Text("Сканер")
-            }.tag(1)
-        SettingsPage().tabItem {
+        DeletedItemsList().tabItem {
                 Image(systemName: "gear")
-                Text("Настройки")
+                Text("Удаленные предметы")
             }.tag(2)
 
         }

@@ -15,9 +15,6 @@
 		639F782725771C96007FFCED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 639F782625771C96007FFCED /* Assets.xcassets */; };
 		639F782A25771C96007FFCED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 639F782925771C96007FFCED /* Preview Assets.xcassets */; };
 		63B43F9D25BC2B230030076E /* DeletedItemsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B43F9C25BC2B230030076E /* DeletedItemsList.swift */; };
-		63B593202582F36E001697B4 /* CheckOutPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B5931F2582F36E001697B4 /* CheckOutPage.swift */; };
-		63C8818425B3C16B002DA375 /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C8818125B3C16B002DA375 /* MailView.swift */; };
-		63C8818525B3C16B002DA375 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C8818225B3C16B002DA375 /* SettingsPage.swift */; };
 		63D75CAC257E094D0037B46E /* Storige.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 63D75CAA257E094D0037B46E /* Storige.xcdatamodeld */; };
 		63F17E662578ACCB00D0E121 /* ViewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F17E652578ACCB00D0E121 /* ViewPage.swift */; };
 		63F17E8C2578CF4100D0E121 /* StorigeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F17E8B2578CF4100D0E121 /* StorigeApp.swift */; };
@@ -33,10 +30,7 @@
 		639F782925771C96007FFCED /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		639F783025771C96007FFCED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63B43F9C25BC2B230030076E /* DeletedItemsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedItemsList.swift; sourceTree = "<group>"; };
-		63B5931F2582F36E001697B4 /* CheckOutPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckOutPage.swift; sourceTree = "<group>"; };
 		63C6D050257A29A50055FF18 /* Storige.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Storige.entitlements; sourceTree = "<group>"; };
-		63C8818125B3C16B002DA375 /* MailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
-		63C8818225B3C16B002DA375 /* SettingsPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
 		63D75CAB257E094D0037B46E /* StorigeData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StorigeData.xcdatamodel; sourceTree = "<group>"; };
 		63F17E652578ACCB00D0E121 /* ViewPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPage.swift; sourceTree = "<group>"; };
 		63F17E8B2578CF4100D0E121 /* StorigeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorigeApp.swift; sourceTree = "<group>"; };
@@ -76,14 +70,6 @@
 			name = HighLevelStuff;
 			sourceTree = "<group>";
 		};
-		6307174C25A4685A004518BC /* ScannerTab */ = {
-			isa = PBXGroup;
-			children = (
-				63B5931F2582F36E001697B4 /* CheckOutPage.swift */,
-			);
-			name = ScannerTab;
-			sourceTree = "<group>";
-		};
 		6307174E25A468FB004518BC /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -113,7 +99,6 @@
 			isa = PBXGroup;
 			children = (
 				6307174A25A46854004518BC /*  ViewTab */,
-				6307174C25A4685A004518BC /* ScannerTab */,
 				6307174E25A468FB004518BC /* CoreData */,
 				63C8818B25B3C195002DA375 /* SettingsTab */,
 				6307174B25A46857004518BC /* HighLevelStuff */,
@@ -133,8 +118,6 @@
 		63C8818B25B3C195002DA375 /* SettingsTab */ = {
 			isa = PBXGroup;
 			children = (
-				63C8818125B3C16B002DA375 /* MailView.swift */,
-				63C8818225B3C16B002DA375 /* SettingsPage.swift */,
 				63B43F9C25BC2B230030076E /* DeletedItemsList.swift */,
 			);
 			name = SettingsTab;
@@ -217,15 +200,12 @@
 			files = (
 				63D75CAC257E094D0037B46E /* Storige.xcdatamodeld in Sources */,
 				63F17E8C2578CF4100D0E121 /* StorigeApp.swift in Sources */,
-				63B593202582F36E001697B4 /* CheckOutPage.swift in Sources */,
 				636C3C5C25C6E31F00A725E0 /* DetailedView.swift in Sources */,
 				632A07F8257F9E6C00F89AE4 /* NewItemSheet.swift in Sources */,
 				63B43F9D25BC2B230030076E /* DeletedItemsList.swift in Sources */,
 				63F17E662578ACCB00D0E121 /* ViewPage.swift in Sources */,
 				639F782525771C95007FFCED /* ContentView.swift in Sources */,
-				63C8818425B3C16B002DA375 /* MailView.swift in Sources */,
 				634561D5257F23DC0056EE83 /* Persistence.swift in Sources */,
-				63C8818525B3C16B002DA375 /* SettingsPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
