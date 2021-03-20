@@ -9,19 +9,14 @@ import SwiftUI
 import Combine
 import CoreImage.CIFilterBuiltins
 
-struct NewItemSheet: View
-{    let filter = CIFilter.qrCodeGenerator()
-    var uuid: UUID?
-    var uuidString: String? {return uuid?.uuidString}
+struct NewItemSheet: View{
     @State var serialNum = ""
     @State var journalNum = ""
     @State var amount = ""
     @State var amountInt: Int64 = 1
     @State var items: [Any] = []
-    @State var sharing = false
     @Environment(\.managedObjectContext) private var viewContext
     @Environment (\.presentationMode) var presentationMode
-    
     var body: some View
     {NavigationView{
             Form
@@ -79,24 +74,5 @@ struct NewItemSheet: View
         
     }
 }
-    func shareButton() {
-        let av = UIActivityViewController(activityItems: items, applicationActivities: nil)
-        UIApplication.shared.windows.last!.rootViewController!.present(av, animated: true, completion: nil)
-        sharing.toggle()
-    }
 }
 
-extension NewItemSheet
-{
-func createQrCodeImage(_ uuidString: String) -> UIImage{
-            let data = Data(uuidString.utf8)
-            filter.setValue(data, forKey: "inputMessage")
-            let transform = CGAffineTransform(scaleX: 15, y: 15)
-    if let qrCodeImage = filter.outputImage?.transformed(by: transform){
-                if let qrCodeCGImage = CIContext().createCGImage(qrCodeImage, from: qrCodeImage.extent){
-                    return UIImage(cgImage:  qrCodeCGImage)
-                }
-            }
-                return UIImage()
-    }
-}

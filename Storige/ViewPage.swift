@@ -129,7 +129,6 @@ struct ViewPage: View{ // начало главной структуры
                 case .second: // обзор предмета
                     DetailedView()
                         .onDisappear(perform: {
-                            print("ive dissapeared")
                             for item in sortedItems{
                                 if uuidToPass == item.itemid{
                                     editItem(item: item)
