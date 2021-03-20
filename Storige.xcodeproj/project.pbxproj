@@ -3,14 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		632A07F8257F9E6C00F89AE4 /* NewItemSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632A07F7257F9E6C00F89AE4 /* NewItemSheet.swift */; };
 		634561D5257F23DC0056EE83 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634561D4257F23DC0056EE83 /* Persistence.swift */; };
 		636C3C5C25C6E31F00A725E0 /* DetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636C3C5B25C6E31F00A725E0 /* DetailedView.swift */; };
-		637A61A7258519A4002A7E23 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 637A61A6258519A4002A7E23 /* CodeScanner */; };
 		639F782525771C95007FFCED /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639F782425771C95007FFCED /* ContentView.swift */; };
 		639F782725771C96007FFCED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 639F782625771C96007FFCED /* Assets.xcassets */; };
 		639F782A25771C96007FFCED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 639F782925771C96007FFCED /* Preview Assets.xcassets */; };
@@ -41,7 +40,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				637A61A7258519A4002A7E23 /* CodeScanner in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,7 +138,6 @@
 			);
 			name = Storige;
 			packageProductDependencies = (
-				637A61A6258519A4002A7E23 /* CodeScanner */,
 			);
 			productName = Storige;
 			productReference = 639F781F25771C95007FFCED /* Storige.app */;
@@ -170,7 +167,6 @@
 			);
 			mainGroup = 639F781625771C95007FFCED;
 			packageReferences = (
-				637A61A5258519A4002A7E23 /* XCRemoteSwiftPackageReference "CodeScanner" */,
 			);
 			productRefGroup = 639F782025771C95007FFCED /* Products */;
 			projectDirPath = "";
@@ -402,25 +398,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		637A61A5258519A4002A7E23 /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/twostraws/CodeScanner";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.7;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		637A61A6258519A4002A7E23 /* CodeScanner */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 637A61A5258519A4002A7E23 /* XCRemoteSwiftPackageReference "CodeScanner" */;
-			productName = CodeScanner;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		63D75CAA257E094D0037B46E /* Storige.xcdatamodeld */ = {

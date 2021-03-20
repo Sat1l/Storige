@@ -38,7 +38,7 @@ struct ViewPage: View{ // начало главной структуры
     {
         NavigationView{// обертка для невигейшн вью начало
             VStack{
-                VStack{
+//                VStack{
                 HStack {
                     HStack {
                         Image(systemName: "magnifyingglass")
@@ -59,7 +59,6 @@ struct ViewPage: View{ // начало главной структуры
                     .foregroundColor(.secondary)
                     .background(Color(.secondarySystemBackground))
                     .cornerRadius(10.0)
-
                     if showCancelButton  {
                         Button("Отмена") {
                                 UIApplication.shared.endEditing(true) // this must be placed before the other commands here
@@ -69,17 +68,19 @@ struct ViewPage: View{ // начало главной структуры
                         .foregroundColor(Color(.systemBlue))
                     }
                 }
-                    if showCancelButton{
-                        Picker(selection: $selected, label: Text(""), content: {
-                                        Text("Название").tag(false)
-                                        Text("Журнальный номер").tag(true)
-                        }).pickerStyle(SegmentedPickerStyle())
-                        
-                    }
-
-                }
-                .padding(.all, 10)
+//                    if showCancelButton{
+//                        Picker(selection: $selected, label: Text(""), content: {
+//                                        Text("Название").tag(false)
+//                                        Text("Журнальный номер").tag(true)
+//                        }).pickerStyle(SegmentedPickerStyle())
+//                    }
+//                }
+//                .padding(.top)
                 .navigationBarHidden(showCancelButton)
+                .animation(.spring())
+            if !showCancelButton{
+                Divider().animation(.spring())
+            }
             List{ // начало оформления списка
                 ForEach( selected ? sortedItems.filter{$0.journalNum!.hasPrefix(searchText) || searchText == ""} : sortedItems.filter{$0.serialNum!.hasPrefix(searchText) || searchText == ""}) {  Item in // для каждого предмета в списке SortedItems применяем эти оформления
                     Button(action: { //начало действий при нажатии кнопки
@@ -112,8 +113,9 @@ struct ViewPage: View{ // начало главной структуры
                     updateArrays()
                 } //отклик и обработка удаления предмета в спике конец
             } // конец оформления списка
-            }
             .listStyle(PlainListStyle())//модификатор для списка
+            .animation(.easeOut(duration: 0.5))
+            }
             .navigationBarTitle("Обзор", displayMode: .inline)//настройки для топ бара навигации
             .navigationBarItems(leading: Button(action:{sortSheet.toggle()},label: {Text("Сортировка")}),//первая строчка кнопки в топ баре добавления нового предмета
             trailing: Button(action: {activeSheet = .first}, label: {Text("Добавить")}))//вторая строчка кнопки в топ баре добавления нового предмета
@@ -184,13 +186,6 @@ struct ViewPage: View{ // начало главной структуры
         }
     }
 } // конец главной структуры
-
-struct hernya{ // херня начало
-    static var sharedUuid: UUID?
-    static var sharedSerialNum = ""
-    static var sharedAmount: Int64 = 1
-    static var sharedJournalNum = ""
-} // херня конец
 
 extension UIApplication {
     func endEditing(_ force: Bool) {

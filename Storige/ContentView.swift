@@ -16,7 +16,7 @@ struct ContentView: View {
                 Text("Обзор")
             }.tag(0)
         DeletedItemsList().tabItem {
-                Image(systemName: "gear")
+                Image(systemName: "trash.fill")
                 Text("Удаленные предметы")
             }.tag(2)
 
