@@ -27,7 +27,7 @@ struct ViewPage: View{ // начало главной структуры
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(entity: Item.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Item.serialNum, ascending: true)])
     public var items: FetchedResults<Item>
-    @State private var showCancelButton: Bool = false
+    @State private var isEditing = false
     @State private var searchText = ""
     @State var sortedItems:[Item] = []
     @State var fetchedItems:[Item] = []
@@ -38,50 +38,48 @@ struct ViewPage: View{ // начало главной структуры
     {
         NavigationView{// обертка для невигейшн вью начало
             VStack{
-//                VStack{
+            List{ // начало оформления списка
+                VStack{
                 HStack {
-                    HStack {
-                        Image(systemName: "magnifyingglass")
-
-                        TextField("search", text: $searchText, onEditingChanged: { isEditing in
-                            self.showCancelButton = true
-                        }, onCommit: {
-                            print("onCommit")
-                        }).foregroundColor(.primary)
-
+                    TextField("Поиск", text: $searchText)
+                        .onTapGesture {
+                            self.isEditing = true
+                        }
+                        .padding(7)
+                        .padding(.horizontal, 25)
+                        .background(Color(.systemGray6))
+                        .cornerRadius(8)
+                        .overlay(
+                            HStack {
+                                Image(systemName: "magnifyingglass")
+                                    .foregroundColor(.gray)
+                                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                                    .padding(.leading, 8)
+                            }
+                        )
+                        .padding(.horizontal, 10)
+                        .animation(.spring())
+                    if isEditing {
                         Button(action: {
+                            self.isEditing = false
                             self.searchText = ""
+                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                         }) {
-                            Image(systemName: "xmark.circle.fill").opacity(searchText == "" ? 0 : 1)
+                            Text("Отменить")
+                                .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
                         }
-                    }
-                    .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
-                    .foregroundColor(.secondary)
-                    .background(Color(.secondarySystemBackground))
-                    .cornerRadius(10.0)
-                    if showCancelButton  {
-                        Button("Отмена") {
-                                UIApplication.shared.endEditing(true) // this must be placed before the other commands here
-                                self.searchText = ""
-                                self.showCancelButton = false
-                        }
-                        .foregroundColor(Color(.systemBlue))
+                        .padding(.trailing, 10)
+                        .transition(.move(edge: .trailing))
+                        .animation(.default)
                     }
                 }
-//                    if showCancelButton{
-//                        Picker(selection: $selected, label: Text(""), content: {
-//                                        Text("Название").tag(false)
-//                                        Text("Журнальный номер").tag(true)
-//                        }).pickerStyle(SegmentedPickerStyle())
-//                    }
-//                }
-//                .padding(.top)
-                .navigationBarHidden(showCancelButton)
-                .animation(.spring())
-            if !showCancelButton{
-                Divider().animation(.spring())
+                    if isEditing {
+                        Picker(selection: $selected, label: Text(""), content: {
+                            Text("Название").tag(false)
+                            Text("Журнальный номер").tag(true)
+                    }).pickerStyle(SegmentedPickerStyle())
+                    }
             }
-            List{ // начало оформления списка
                 ForEach( selected ? sortedItems.filter{$0.journalNum!.hasPrefix(searchText) || searchText == ""} : sortedItems.filter{$0.serialNum!.hasPrefix(searchText) || searchText == ""}) {  Item in // для каждого предмета в списке SortedItems применяем эти оформления
                     Button(action: { //начало действий при нажатии кнопки
                         itemDetails.serialNum = Item.serialNum ?? ""
@@ -112,13 +110,14 @@ struct ViewPage: View{ // начало главной структуры
                     }
                     updateArrays()
                 } //отклик и обработка удаления предмета в спике конец
+                .animation(.easeOut(duration: 0.5))
             } // конец оформления списка
             .listStyle(PlainListStyle())//модификатор для списка
-            .animation(.easeOut(duration: 0.5))
             }
-            .navigationBarTitle("Обзор", displayMode: .inline)//настройки для топ бара навигации
-            .navigationBarItems(leading: Button(action:{sortSheet.toggle()},label: {Text("Сортировка")}),//первая строчка кнопки в топ баре добавления нового предмета
-            trailing: Button(action: {activeSheet = .first}, label: {Text("Добавить")}))//вторая строчка кнопки в топ баре добавления нового предмета
+            .navigationBarTitle("Обзор", displayMode: .automatic)//настройки для топ бара навигации
+            .navigationBarItems(leading: Button(action:{sortSheet.toggle()},label: {Text("Сортировка")}),
+            trailing: Button(action: {activeSheet = .first}, label: {Text("Добавить")}))
+            .navigationBarHidden(isEditing)
             .sheet(item: $activeSheet) { item in //шит с добавлением, или же обзором предмета
                 switch item { // свитч отслеживающий какой показывать - новый или обзор начало
                 case .first: // добавление предмета
@@ -185,27 +184,3 @@ struct ViewPage: View{ // начало главной структуры
         }
     }
 } // конец главной структуры
-
-extension UIApplication {
-    func endEditing(_ force: Bool) {
-        self.windows
-            .filter{$0.isKeyWindow}
-            .first?
-            .endEditing(force)
-    }
-}
-
-struct ResignKeyboardOnDragGesture: ViewModifier {
-    var gesture = DragGesture().onChanged{_ in
-        UIApplication.shared.endEditing(true)
-    }
-    func body(content: Content) -> some View {
-        content.gesture(gesture)
-    }
-}
-
-extension View {
-    func resignKeyboardOnDragGesture() -> some View {
-        return modifier(ResignKeyboardOnDragGesture())
-    }
-}
