@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 enum ActiveSheet: Identifiable { // ответственно за переключение шитов
-    case first, second
+    case newItem, detailed
     var id: Int {hashValue}
 }
 
@@ -31,12 +31,14 @@ struct ViewPage: View{ // начало главной структуры
     @State private var searchText = ""
     @State var sortedItems:[Item] = []
     @State var fetchedItems:[Item] = []
-    @State var typeOfSorting: Int8 = 1
     @State var uuidToPass = UUID()
     @State var selected = false
+    @State var isPickerDisplayed = false
+    @State var age = 0
     var body: some View // главный вью
     {
         NavigationView{// обертка для невигейшн вью начало
+            ZStack{
             VStack{
             List{ // начало оформления списка
                 VStack{
@@ -58,7 +60,6 @@ struct ViewPage: View{ // начало главной структуры
                             }
                         )
                         .padding(.horizontal, 10)
-                        .animation(.spring())
                     if isEditing {
                         Button(action: {
                             self.isEditing = false
@@ -70,7 +71,6 @@ struct ViewPage: View{ // начало главной структуры
                         }
                         .padding(.trailing, 10)
                         .transition(.move(edge: .trailing))
-                        .animation(.default)
                     }
                 }
                     if isEditing {
@@ -80,6 +80,18 @@ struct ViewPage: View{ // начало главной структуры
                     }).pickerStyle(SegmentedPickerStyle())
                     }
             }
+                
+                HStack{
+                    Spacer()
+                    Button(action: {
+                        print("zhopa")
+                        isPickerDisplayed = true
+                    }, label: {
+                        Text("Позаказть скрол")
+                    })
+                    .foregroundColor(.blue)
+                    Spacer()
+                }
                 ForEach( selected ? sortedItems.filter{$0.journalNum!.hasPrefix(searchText) || searchText == ""} : sortedItems.filter{$0.serialNum!.hasPrefix(searchText) || searchText == ""}) {  Item in // для каждого предмета в списке SortedItems применяем эти оформления
                     Button(action: { //начало действий при нажатии кнопки
                         itemDetails.serialNum = Item.serialNum ?? ""
@@ -87,7 +99,7 @@ struct ViewPage: View{ // начало главной структуры
                         itemDetails.amount = Item.amount
                         itemDetails.uuid = Item.itemid
                         uuidToPass = Item.itemid!
-                        activeSheet = .second // вызываем шит с подробностями об объекте
+                        activeSheet = .detailed // вызываем шит с подробностями об объекте
                     }, label: //конец действий при нажатии кнопки и начало лейбла
                     {
                     VStack(alignment: .leading){ //визуальная оболочка для кнопки
@@ -110,22 +122,46 @@ struct ViewPage: View{ // начало главной структуры
                     }
                     updateArrays()
                 } //отклик и обработка удаления предмета в спике конец
-                .animation(.easeOut(duration: 0.5))
             } // конец оформления списка
             .listStyle(PlainListStyle())//модификатор для списка
             }
+                if isPickerDisplayed {
+                VStack(spacing: 0){
+                Spacer()
+                Divider()
+                    HStack{
+                        Spacer()
+                        Button(action: {
+                            isPickerDisplayed = false
+                        }){Text("Готово")}
+                    }
+                    .foregroundColor(.blue)
+                    .padding(.all)
+                Divider()
+                Picker(selection: $age, label: Text("Age")) {
+                     ForEach(0 ..< 100) { number in
+                          Text("\(number)")
+                     }
+                }.pickerStyle(WheelPickerStyle())
+                .frame(maxWidth: .infinity)
+                .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.bottom))
+            }
+                .transition(.move(edge: .bottom))
+                .animation(.default)
+            }
+        }
             .navigationBarTitle("Обзор", displayMode: .automatic)//настройки для топ бара навигации
             .navigationBarItems(leading: Button(action:{sortSheet.toggle()},label: {Text("Сортировка")}),
-            trailing: Button(action: {activeSheet = .first}, label: {Text("Добавить")}))
+            trailing: Button(action: {activeSheet = .newItem}, label: {Text("Добавить")}))
             .navigationBarHidden(isEditing)
             .sheet(item: $activeSheet) { item in //шит с добавлением, или же обзором предмета
                 switch item { // свитч отслеживающий какой показывать - новый или обзор начало
-                case .first: // добавление предмета
+                case .newItem: // добавление предмета
                     NewItemSheet()
                         .onDisappear(perform: {
                             updateArrays()
                         })
-                case .second: // обзор предмета
+                case .detailed: // обзор предмета
                     DetailedView()
                         .onDisappear(perform: {
                             for item in sortedItems{
@@ -150,31 +186,32 @@ struct ViewPage: View{ // начало главной структуры
         .onDisappear{updateArrays()}
         .environmentObject(itemDetails)
     }// конец главного вью
+
     func forSorting(Type: Int){ // функция для сортировки отображаемого на экране списка начало
         switch Type{ // свитч для определения типа сортировки начало
         case 1: // возрастание количества
-            typeOfSorting = 1
             sortedItems = items.filter{$0.isOnDeleted == false}.sorted(by: {$0.amount < $1.amount})
         case 2: // убывание количества
-            typeOfSorting = 2
             sortedItems = items.filter{$0.isOnDeleted == false}.sorted(by: {$0.amount > $1.amount})
         case 3: //убывание по алфавиту
-            typeOfSorting = 3
             sortedItems = items.filter{$0.isOnDeleted == false}.sorted(by: {$0.serialNum! < $1.serialNum!})
         default:
             print("yopta")
         }//свитч для определения типа сортировки конец
     }// функция для сортировки отображаемого на экране списка конец
+
     func updateOrder(item: Item) {
         viewContext.performAndWait {
             item.isOnDeleted = true
             try? viewContext.save()
         }
     }
+
     func updateArrays(){
         fetchedItems = items.sorted(by: {$0.serialNum! < $1.serialNum!})
         sortedItems = fetchedItems.filter{$0.isOnDeleted == false}
     }
+
     func editItem(item: Item) {
         viewContext.performAndWait {
             item.serialNum = itemDetails.serialNum
@@ -183,4 +220,5 @@ struct ViewPage: View{ // начало главной структуры
             try? viewContext.save()
         }
     }
+
 } // конец главной структуры
