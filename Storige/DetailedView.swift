@@ -11,8 +11,8 @@ import Combine
 struct DetailedView: View {
     @EnvironmentObject var itemDetails: ItemProperties
     @State var items: [Any] = []
-    @State var isViewing = true
     @State var amountText = ""
+    @State var isChanged = false
     var body: some View {NavigationView{
         Form{
             Section(header: Text("Наименование: ")){
@@ -23,8 +23,13 @@ struct DetailedView: View {
                                 self.itemDetails.serialNum.removeLast()
                                 }
                     }
-                    .transition(.opacity)
-                    .disabled(isViewing)
+                    .onChange(of: itemDetails.serialNum, perform: { value in
+                        if itemDetails.serialNum == hernya2o.originalSerialNum && itemDetails.journalNum == hernya2o.originalJournalNum {
+                            isChanged = false
+                        } else {
+                        isChanged = true
+                        }
+                    })
             }
             Section(header: Text("Журнальный номер: ")){
                 TextField("Журнальный номер", text: $itemDetails.journalNum)
@@ -34,8 +39,15 @@ struct DetailedView: View {
                                     self.itemDetails.journalNum.removeLast()
                                 }
                     }
-                    .disabled(isViewing)
             }
+            .onChange(of: itemDetails.serialNum, perform: { value in
+                print(itemDetails.serialNum, hernya2o.originalSerialNum)
+                if itemDetails.serialNum == hernya2o.originalSerialNum && itemDetails.journalNum == hernya2o.originalJournalNum {
+                    isChanged = false
+                } else {
+                isChanged = true
+                }
+            })
 //            Section(header: Text("Количество: ")){
 //                TextField("Количество", value: $amountText, formatter: NumberFormatter())
 //                    .keyboardType(.numberPad)
@@ -52,14 +64,19 @@ struct DetailedView: View {
 //            }
         }
         .navigationBarTitle(itemDetails.serialNum, displayMode: .inline)
-        .navigationBarItems(leading:
-                                Button(action:{isViewing.toggle()},label: {Text(isViewing == true ? "Изменить":"Готово")})
+        .navigationBarItems(trailing:
+                                Button(action:{print("penis sobaki👍🏿")},label: {
+                                        Text(isChanged == true ? "Изменить":"Готово")})
         )
     }
-//    .onAppear(perform: {
-//                amountText = String(itemDetails.amount)
-//    })
+    .onAppear(perform: {
+        hernya2o.originalSerialNum = itemDetails.serialNum
+        hernya2o.originalJournalNum = itemDetails.journalNum
+    })
     }
-
 }
 
+struct hernya2o{
+    static var originalSerialNum: String = ""
+    static var originalJournalNum: String = ""
+}

@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-enum ActiveSheet: Identifiable { // ответственно за переключение шитов
+enum ActiveSheet: Identifiable {
     case newItem, detailed
     var id: Int {hashValue}
 }
@@ -88,6 +88,8 @@ struct ViewPage: View{ // начало главной структуры
                         isPickerDisplayed = true
                     }, label: {
                         Text("Позаказть скрол")
+							.font(.headline)
+							.fontWeight(.bold)
                     })
                     .foregroundColor(.blue)
                     Spacer()
@@ -133,11 +135,13 @@ struct ViewPage: View{ // начало главной структуры
                         Spacer()
                         Button(action: {
                             isPickerDisplayed = false
-                        }){Text("Готово")}
+                        }){
+							Text("Готово")
+                        }
                     }
                     .foregroundColor(.blue)
                     .padding(.all)
-                Divider()
+					.background(Color(UIColor.label).colorInvert())
                 Picker(selection: $age, label: Text("Age")) {
                      ForEach(0 ..< 100) { number in
                           Text("\(number)")
@@ -147,7 +151,7 @@ struct ViewPage: View{ // начало главной структуры
                 .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.bottom))
             }
                 .transition(.move(edge: .bottom))
-                .animation(.default)
+				.animation(.default)
             }
         }
             .navigationBarTitle("Обзор", displayMode: .automatic)//настройки для топ бара навигации

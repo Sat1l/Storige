@@ -55,6 +55,7 @@
 			);
 			name = " ViewTab";
 			sourceTree = "<group>";
+			usesTabs = 1;
 		};
 		6307174B25A46857004518BC /* HighLevelStuff */ = {
 			isa = PBXGroup;
