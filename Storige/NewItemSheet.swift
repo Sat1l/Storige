@@ -14,7 +14,6 @@ struct NewItemSheet: View{
     @State var journalNum = ""
     @State var amount = ""
     @State var amountInt: Int64 = 1
-    @State var items: [Any] = []
     @Environment(\.managedObjectContext) private var viewContext
     @Environment (\.presentationMode) var presentationMode
     var body: some View

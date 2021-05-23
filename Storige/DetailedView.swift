@@ -80,3 +80,4 @@ struct hernya2o{
     static var originalSerialNum: String = ""
     static var originalJournalNum: String = ""
 }
+

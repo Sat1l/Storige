@@ -21,19 +21,18 @@ class ItemProperties: ObservableObject {
 }
 
 struct ViewPage: View{ // начало главной структуры
+	@FetchRequest(entity: Item.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Item.serialNum, ascending: true)]) public var items: FetchedResults<Item>
+	@Environment(\.managedObjectContext) private var viewContext
     @StateObject var itemDetails = ItemProperties()
-    @State var activeSheet: ActiveSheet?
-    @State var sortSheet = false
-    @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(entity: Item.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Item.serialNum, ascending: true)])
-    public var items: FetchedResults<Item>
+	@State private var isPickerDisplayed = false
     @State private var isEditing = false
-    @State private var searchText = ""
-    @State var sortedItems:[Item] = []
-    @State var fetchedItems:[Item] = []
-    @State var uuidToPass = UUID()
+	@State private var searchText = ""
+	@State var sortedItems:[Item] = []
+	@State var fetchedItems:[Item] = []
+	@State var activeSheet: ActiveSheet?
+	@State var uuidToPass = UUID()
+	@State var sortSheet = false
     @State var selected = false
-    @State var isPickerDisplayed = false
     @State var age = 0
     var body: some View // главный вью
     {
@@ -79,10 +78,10 @@ struct ViewPage: View{ // начало главной структуры
                             Text("Журнальный номер").tag(true)
                     }).pickerStyle(SegmentedPickerStyle())
                     }
+					
             }
-                
                 HStack{
-                    Spacer()
+					Spacer()
                     Button(action: {
                         print("zhopa")
                         isPickerDisplayed = true
@@ -92,7 +91,7 @@ struct ViewPage: View{ // начало главной структуры
 							.fontWeight(.bold)
                     })
                     .foregroundColor(.blue)
-                    Spacer()
+					Spacer()
                 }
                 ForEach( selected ? sortedItems.filter{$0.journalNum!.hasPrefix(searchText) || searchText == ""} : sortedItems.filter{$0.serialNum!.hasPrefix(searchText) || searchText == ""}) {  Item in // для каждого предмета в списке SortedItems применяем эти оформления
                     Button(action: { //начало действий при нажатии кнопки
@@ -135,6 +134,7 @@ struct ViewPage: View{ // начало главной структуры
                         Spacer()
                         Button(action: {
                             isPickerDisplayed = false
+							print(age)
                         }){
 							Text("Готово")
                         }
