@@ -81,7 +81,7 @@ struct ViewPage: View{ // начало главной структуры
 					
 			}
 				Button(""){
-					print(items)
+					print(containers)
 				}
 				ForEach(containers, id: \.self) { container in
 					Section(header: Text(container.name!)) {

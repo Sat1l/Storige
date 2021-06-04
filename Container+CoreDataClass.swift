@@ -10,6 +10,4 @@ import Foundation
 import CoreData
 
 @objc(Container)
-public class Container: NSManagedObject {
-
-}
+public class Container: NSManagedObject {}

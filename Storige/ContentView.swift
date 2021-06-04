@@ -19,8 +19,6 @@ struct ContentView: View {
                 Image(systemName: "trash.fill")
                 Text("Удаленные предметы")
             }.tag(2)
-
         }
-        
     }
 }

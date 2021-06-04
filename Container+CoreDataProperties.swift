@@ -11,15 +11,12 @@ import CoreData
 
 
 extension Container {
-
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Container> {
         return NSFetchRequest<Container>(entityName: "Container")
     }
-
     @NSManaged public var name: String?
     @NSManaged public var containerid: UUID?
     @NSManaged public var items: NSSet?
-
     public var itemArray: [Item] {
         let set = items as? Set<Item> ?? []
         return set.sorted {
@@ -29,9 +26,7 @@ extension Container {
     
 }
 
-// MARK: Generated accessors for items
 extension Container {
-
     @objc(addItemsObject:)
     @NSManaged public func addToItems(_ value: Item)
 
@@ -43,9 +38,6 @@ extension Container {
 
     @objc(removeItems:)
     @NSManaged public func removeFromItems(_ values: NSSet)
-
 }
 
-extension Container : Identifiable {
-
-}
+extension Container : Identifiable {}
