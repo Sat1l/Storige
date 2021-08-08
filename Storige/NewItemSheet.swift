@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Combine
-import CoreImage.CIFilterBuiltins
 
 class ContainerName: ObservableObject{
 	@Published var containerName = String()
@@ -87,6 +86,7 @@ struct NewItemSheet: View{
 				}.pickerStyle(WheelPickerStyle())
 				.frame(maxWidth: .infinity)
 				.background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.bottom))
+				.onChange(of: pickedContainer, perform: { value in print(pickedContainer) })
 			}
 				.transition(.move(edge: .bottom))
 				.animation(.default)
@@ -106,7 +106,7 @@ struct NewItemSheet: View{
 					newItem.creationDate = Date()
 					newItem.isOnDeleted = false
 					newItem.journalNum = self.journalNum
-					newItem.container?.name = pickedContainer
+					newItem.container = containers.filter{$0.name!.hasPrefix(pickedContainer)}.first
 					do {
 						try viewContext.save()
 						print("item saved")
