@@ -9,6 +9,7 @@ import SwiftUI
 import Combine
 
 struct DetailedView: View {
+	@Environment (\.presentationMode) private var presentationMode
     @EnvironmentObject var itemDetails: ItemProperties
     @State var items: [Any] = []
     @State var amountText = ""
@@ -40,9 +41,8 @@ struct DetailedView: View {
                                 }
                     }
             }
-            .onChange(of: itemDetails.serialNum, perform: { value in
-                print(itemDetails.serialNum, hernya2o.originalSerialNum)
-                if itemDetails.serialNum == hernya2o.originalSerialNum && itemDetails.journalNum == hernya2o.originalJournalNum {
+            .onChange(of: itemDetails.journalNum, perform: { value in
+                if itemDetails.serialNum != hernya2o.originalSerialNum || itemDetails.journalNum != hernya2o.originalJournalNum {
                     isChanged = false
                 } else {
                 isChanged = true
@@ -65,9 +65,10 @@ struct DetailedView: View {
         }
         .navigationBarTitle(itemDetails.serialNum, displayMode: .inline)
         .navigationBarItems(trailing:
-                                Button(action:{print("penis sobaki👍🏿")},label: {
-                                        Text(isChanged == true ? "Изменить":"Готово")})
-        )
+                                Button(action:{
+										print("penis sobaki👍🏿")
+										presentationMode.wrappedValue.dismiss()
+								},label: { Text(isChanged == true ? "Сохранить":"Готово")}))
     }
     .onAppear(perform: {
         hernya2o.originalSerialNum = itemDetails.serialNum

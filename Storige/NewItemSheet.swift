@@ -80,6 +80,7 @@ struct NewItemSheet: View{
 					.padding(.all)
 					.background(Color(UIColor.label).colorInvert())
 				Picker(selection: $pickedContainer, label: Text("")) {
+					Text("none").tag("zhopa")
 					ForEach(containers, id: \.name) { container in
 						Text(container.name!).tag(container.name!)
 					}
@@ -149,6 +150,12 @@ struct NewFamilySheet: View {
 				let newContainer = Container(context: viewContext)
 				newContainer.name = containerName.containerName
 				newContainer.containerid = UUID()
+				do {
+					try viewContext.save()
+					print("item saved")
+					presentationMode.wrappedValue.dismiss()
+				}
+				catch { print(error.localizedDescription) }
 				presentationMode.wrappedValue.dismiss()
 				} .disabled(containerName.containerName.isEmpty)
 			)

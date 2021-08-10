@@ -23,6 +23,7 @@ struct ViewPage: View{ // начало главной структуры
 	@FetchRequest(entity: Item.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Item.serialNum, ascending: true)]) public var items: FetchedResults<Item>
 	@FetchRequest(entity: Container.entity(), sortDescriptors: []) var containers: FetchedResults<Container>
 	@Environment(\.managedObjectContext) private var viewContext
+	@Environment (\.presentationMode) var presentationMode
 	@StateObject var itemDetails = ItemProperties()
 	@State private var isPickerDisplayed = false
 	@State private var isEditing = false
@@ -30,17 +31,18 @@ struct ViewPage: View{ // начало главной структуры
 	@State var sortedItems:[Item] = []
 	@State var fetchedItems:[Item] = []
 	@State var activeSheet: ActiveSheet?
+	@State var pickedContainer = ""
+	@State var showBaraban = false
 	@State var uuidToPass = UUID()
 	@State var sortSheet = false
 	@State var selected = false
-	@State var age = 0
 	var body: some View // главный вью
 	{
 		NavigationView{// обертка для невигейшн вью начало
 			ZStack{
 			VStack{
 			List{ // начало оформления списка
-				VStack{
+				VStack{ // хуйта для поиска начало
 				HStack {
 					TextField("Поиск", text: $searchText)
 						.onTapGesture {
@@ -66,7 +68,7 @@ struct ViewPage: View{ // начало главной структуры
 							UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
 						}) {
 							Text("Отменить")
-								.foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+								.foregroundColor(.blue)
 						}
 						.padding(.trailing, 10)
 						.transition(.move(edge: .trailing))
@@ -77,26 +79,32 @@ struct ViewPage: View{ // начало главной структуры
 							Text("Название").tag(false)
 							Text("Журнальный номер").tag(true)
 					}).pickerStyle(SegmentedPickerStyle())
+						
 					}
-					
-			}
-				Button(""){
-					print(items, containers)
-				}
+			} // хуйта для поиска конец
 				ForEach(containers, id: \.self) { container in
 					Section(header: Text(container.name!)) {
 						if container.itemArray.isEmpty {
 							Text("pusto")
 						} else {
-						ForEach(container.itemArray, id: \.self) { item in
-						VStack{
-							Text("\(item.serialNum ?? "")")
+						ForEach(container.itemArray, id: \.self) { Item in
+							Button(action: {
+								itemDetails.serialNum = Item.serialNum ?? ""
+								itemDetails.journalNum = Item.journalNum ?? ""
+								itemDetails.amount = Item.amount
+								itemDetails.uuid = Item.itemid
+								uuidToPass = Item.itemid!
+								activeSheet = .detailed
+							}, label: {
+							VStack(alignment: .leading){
+							Text("\(Item.serialNum ?? "")")
 								.font(.headline)
-							Text("Журнальный номер: \(item.journalNum ?? "отсутствует")")
+							Text("Журнальный номер: \(Item.journalNum ?? "отсутствует")")
 								.font(.subheadline)
-							Text("Кол-во: \(item.amount)")
+							Text("Кол-во: \(Item.amount)")
 								.font(.subheadline)
 							}
+							})
 						}
 					}
 					}
@@ -138,8 +146,7 @@ struct ViewPage: View{ // начало главной структуры
 			}
 		}
 			.navigationBarTitle("Обзор", displayMode: .automatic)//настройки для топ бара навигации
-			.navigationBarItems(leading: Button(action:{sortSheet.toggle()},label: {Text("Сортировка")}),
-			trailing: Button(action: {activeSheet = .newItem}, label: {Text("Добавить")}))
+			.navigationBarItems(trailing: Button(action: {activeSheet = .newItem}, label: {Text("Добавить")}))
 			.navigationBarHidden(isEditing)
 			.sheet(item: $activeSheet) { item in //шит с добавлением, или же обзором предмета
 				switch item { // свитч отслеживающий какой показывать - новый или обзор начало
@@ -162,14 +169,6 @@ struct ViewPage: View{ // начало главной структуры
 						})
 				}// свитч отслеживающий какой показывать - новый или обзор конец
 			} // конец шита с добавлением или обзором
-			.actionSheet(isPresented: $sortSheet) { //ЭкшонЩит с типами сортировок
-				ActionSheet(title: Text("Сортировать по"), buttons: [
-					.default(Text("Кол-во возрастание")) {forSorting(Type: 1)},
-					.default(Text("Кол-во убывание")) {forSorting(Type: 2)},
-					.default(Text("По Алфавиту")) {forSorting(Type: 3)},
-					.cancel()
-				])
-			} // конец экшон щита
 		} // обертка для невигейшн вью конец
 		.onAppear{updateArrays()} // конец инициализации списков
 		.onDisappear{updateArrays()}
