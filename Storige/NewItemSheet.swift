@@ -13,17 +13,19 @@ class ContainerName: ObservableObject{
 }
 
 struct NewItemSheet: View{
-	@StateObject var containerName = ContainerName()
-	@State var sheesh = false
-	@State var isPickerDisplayed = false
-	@State var pickedContainer = ""
-    @State var serialNum = ""
-    @State var journalNum = ""
-    @State var amount = ""
-    @State var amountInt: Int64 = 1
 	@FetchRequest(entity: Container.entity(), sortDescriptors: []) var containers: FetchedResults<Container>
-    @Environment(\.managedObjectContext) private var viewContext
-    @Environment (\.presentationMode) var presentationMode
+	@Environment(\.managedObjectContext) private var viewContext
+	@Environment (\.presentationMode) var presentationMode
+	@StateObject var containerName = ContainerName()
+	@FocusState private var nameIsFocused: Bool
+	@State var isPickerDisplayed = false
+	@State var amountInt: Int64 = 1
+	@State var pickedContainer = ""
+	@State var journalNum = ""
+	@State var sheesh = false
+    @State var serialNum = ""
+    @State var amount = ""
+
     var body: some View
     {NavigationView{
 		ZStack{
@@ -34,16 +36,19 @@ struct NewItemSheet: View{
                     .keyboardType(.default)
                     .onReceive(Just(serialNum)) { inputValue in
                                 if inputValue.count > 50 {
-                                    self.serialNum.removeLast()
+									if serialNum != ""{
+										self.serialNum.removeLast()
+									}
                                 }
                     }
-
                 TextField("Журнальный номер", text: $journalNum)
 					.onTapGesture { isPickerDisplayed = false }
                     .keyboardType(.default)
                     .onReceive(Just(journalNum)) { inputValue in
                                 if inputValue.count > 30 {
-                                    self.journalNum.removeLast()
+									if journalNum != ""{
+										self.journalNum.removeLast()
+									}
                                 }
                     }
                 TextField("Количество", text: $amount)
@@ -55,49 +60,31 @@ struct NewItemSheet: View{
                         let filtered = newValue.filter { "0123456789".contains($0) }
                         if filtered != newValue {self.amount = filtered}
                         if newValue.count > 10 {
-                            self.amount.removeLast()
+							if amount != ""{
+								self.amount.removeLast()
+							}
                         }
                     }
-				Button(pickedContainer == "" ? "отсутствует":pickedContainer){ killkb(); isPickerDisplayed = true }
+				HStack{
+					Text("добавить к: \(pickedContainer)")
+					Spacer()
+					Button("новый"){ sheesh.toggle() } .foregroundColor(.blue)
 				}
-				if isPickerDisplayed {
-				VStack(spacing: 0){
-				Spacer()
-				Divider()
-					HStack{
-						Button("добавить новую"){
-							killkb()
-							sheesh.toggle()
-							print("im depressed")
-						}
-						Spacer()
-						Button("Готово"){
-							isPickerDisplayed = false
-							print(pickedContainer)
-						}
-					}
-					.foregroundColor(.blue)
-					.padding(.all)
-					.background(Color(UIColor.label).colorInvert())
+				
 				Picker(selection: $pickedContainer, label: Text("")) {
-					Text("none").tag("zhopa")
+					Text("без места").tag("без места")
 					ForEach(containers, id: \.name) { container in
 						Text(container.name!).tag(container.name!)
 					}
 				}.pickerStyle(WheelPickerStyle())
-				.frame(maxWidth: .infinity)
-				.background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.bottom))
 				.onChange(of: pickedContainer, perform: { value in print(pickedContainer) })
-			}
-				.transition(.move(edge: .bottom))
-				.animation(.default)
 			}
 	}
 		.navigationBarItems(leading: Button("Отмена"){
 			containerName.containerName = String()
 			presentationMode.wrappedValue.dismiss()
-		}, trailing:
-			Button("Добавить"){
+		} .foregroundColor(.red), trailing:
+		Button("Добавить", role: .cancel){
 				if serialNum != "" {
 					let newItem = Item(context: viewContext)
 					newItem.serialNum = self.serialNum
@@ -107,7 +94,11 @@ struct NewItemSheet: View{
 					newItem.creationDate = Date()
 					newItem.isOnDeleted = false
 					newItem.journalNum = self.journalNum
-					newItem.container = containers.filter{$0.name!.hasPrefix(pickedContainer)}.first
+					if pickedContainer == "без места" {
+						print("kakashki")
+					} else {
+						newItem.container = containers.filter{$0.name!.hasPrefix(pickedContainer)}.first
+					}
 					do {
 						try viewContext.save()
 						print("item saved")
@@ -117,7 +108,7 @@ struct NewItemSheet: View{
 				}}
 			.disabled(serialNum.isEmpty || journalNum.isEmpty)
 		)
-		.navigationBarTitle("Новый объект", displayMode: .large)
+		.navigationBarTitle("Новый объект", displayMode: .inline)
     }
 	.sheet(isPresented: $sheesh, content: {
 		NewFamilySheet(containerName: containerName)
@@ -125,7 +116,6 @@ struct NewItemSheet: View{
 			.onDisappear(){ if pickedContainer == "" { pickedContainer = "отсутствует" } }
 	})
 }
-	func killkb(){ UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil) }
 }
 
 struct NewFamilySheet: View {
