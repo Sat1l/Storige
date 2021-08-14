@@ -31,38 +31,69 @@ struct ViewPage: View{ // начало главной структуры
 	@State var fetchedItems:[Item] = []
 	@State var activeSheet: ActiveSheet?
 	@State var uuidToPass = UUID()
+	@State var selected = false
 	var body: some View // главный вью
 	{
 		NavigationView{// обертка для невигейшн вью начало
+			VStack{
+				Picker(selection: $selected, label: Text(""), content: {
+					Text("Название").tag(false)
+					Text("Журнальный номер").tag(true)
+				})
+				.pickerStyle(SegmentedPickerStyle())
+				.padding(.horizontal)
 			List{ // начало оформления списка
-				ForEach(containers, id: \.self) { container in
-					Section(header: Text(container.name!)) {
-						if container.itemArray.isEmpty {
-							Text("ничего нету")
-						} else {
-						ForEach(container.itemArray, id: \.self) { Item in
-							Button(action: {
-								itemDetails.serialNum = Item.serialNum ?? ""
-								itemDetails.journalNum = Item.journalNum ?? ""
-								itemDetails.amount = Item.amount
-								itemDetails.uuid = Item.itemid
-								uuidToPass = Item.itemid!
-								activeSheet = .detailed
-							}, label: {
-							VStack(alignment: .leading){
-							Text("\(Item.serialNum ?? "")")
-								.font(.headline)
-							Text("Журнальный номер: \(Item.journalNum ?? "отсутствует")")
-								.font(.subheadline)
-							Text("Кол-во: \(Item.amount)")
-								.font(.subheadline)}
-							})
-							.swipeActions{Button("Удалить", role: .destructive){ withAnimation(.default, {viewContext.delete(Item); try?viewContext.save()})}}
+				if searchText == "" {
+					ForEach(containers, id: \.self) { container in
+						Section(header: Text(container.name!)) {
+							if container.itemArray.isEmpty {
+								Text("ничего нету")
+							} else {
+							ForEach(container.itemArray, id: \.self) { Item in
+								Button(action: {
+									itemDetails.serialNum = Item.serialNum ?? ""
+									itemDetails.journalNum = Item.journalNum ?? ""
+									itemDetails.amount = Item.amount
+									itemDetails.uuid = Item.itemid
+									uuidToPass = Item.itemid!
+									activeSheet = .detailed
+								}, label: {
+								VStack(alignment: .leading){
+									Text("\(Item.serialNum ?? "")")
+										.font(.headline)
+									Text("Журнальный номер: \(Item.journalNum ?? "отсутствует")")
+										.font(.subheadline)
+									Text("Кол-во: \(Item.amount)")
+										.font(.subheadline)
+								}})
+								.swipeActions{Button("Удалить", role: .destructive){ withAnimation(.default, {viewContext.delete(Item); try?viewContext.save()})}}
+							}
+							}
 						}
-						} 
 					}
+				} else {
+					ForEach(selected ? items.filter{$0.journalNum!.hasPrefix(searchText)} : items.filter{$0.serialNum!.hasPrefix(searchText)}, id: \.self) { Item in
+						Button(action: {
+								  itemDetails.serialNum = Item.serialNum ?? ""
+								  itemDetails.journalNum = Item.journalNum ?? ""
+								  itemDetails.amount = Item.amount
+								  itemDetails.uuid = Item.itemid
+								  uuidToPass = Item.itemid!
+								  activeSheet = .detailed
+							  }, label: {
+							  VStack(alignment: .leading){
+								  Text("\(Item.serialNum ?? "")")
+									  .font(.headline)
+								  Text("Журнальный номер: \(Item.journalNum ?? "отсутствует")")
+									  .font(.subheadline)
+								  Text("Кол-во: \(Item.amount)")
+									  .font(.subheadline)
+							  }})
+							  .swipeActions{Button("Удалить", role: .destructive){ withAnimation(.default, {viewContext.delete(Item); try?viewContext.save()})}}
+						  }
 				}
-			} // конец оформления списка
+			}
+		}// конец оформления списка
 			.searchable(text: $searchText/*, placement: .navigationBarDrawer(displayMode: .always)*/)
 			.navigationBarTitle("Обзор", displayMode: .inline)
 			.navigationBarItems(trailing: Button(action: {activeSheet = .newItem}, label: {Text("Добавить")}))

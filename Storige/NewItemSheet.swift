@@ -68,9 +68,8 @@ struct NewItemSheet: View{
 				HStack{
 					Text("добавить к: \(pickedContainer)")
 					Spacer()
-					Button("новый"){ sheesh.toggle() } .foregroundColor(.blue)
+					Button("новое место"){ sheesh.toggle() } .foregroundColor(.blue)
 				}
-				
 				Picker(selection: $pickedContainer, label: Text("")) {
 					Text("без места").tag("без места")
 					ForEach(containers, id: \.name) { container in
@@ -87,13 +86,13 @@ struct NewItemSheet: View{
 		Button("Добавить", role: .cancel){
 				if serialNum != "" {
 					let newItem = Item(context: viewContext)
-					newItem.serialNum = self.serialNum
+					newItem.serialNum = serialNum
 					self.amountInt = Int64(amount) ?? 1
 					newItem.amount = self.amountInt
 					newItem.itemid = UUID()
 					newItem.creationDate = Date()
 					newItem.isOnDeleted = false
-					newItem.journalNum = self.journalNum
+					newItem.journalNum = journalNum
 					if pickedContainer == "без места" {
 						print("kakashki")
 					} else {
@@ -105,7 +104,8 @@ struct NewItemSheet: View{
 						presentationMode.wrappedValue.dismiss()
 					}
 					catch { print(error.localizedDescription) }
-				}}
+				}
+				}
 			.disabled(serialNum.isEmpty || journalNum.isEmpty)
 		)
 		.navigationBarTitle("Новый объект", displayMode: .inline)
@@ -115,7 +115,8 @@ struct NewItemSheet: View{
 			.environment(\.managedObjectContext, self.viewContext)
 			.onDisappear(){ if pickedContainer == "" { pickedContainer = "отсутствует" } }
 	})
-}
+	.onAppear(){ pickedContainer = "без места"}
+	}
 }
 
 struct NewFamilySheet: View {
