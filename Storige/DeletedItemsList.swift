@@ -33,7 +33,6 @@ struct DeletedItemsList: View {
                         } catch {
                             print(error.localizedDescription)
                         }
-                        updateArray()
                     }
             }
         }
@@ -44,29 +43,6 @@ struct DeletedItemsList: View {
                 }, label: {
                     Text("dumpAll")
                 }))
-            .onAppear{
-                updateArray()
-            }
-            .actionSheet(isPresented: $showingAlert) {
-                ActionSheet(title: Text("эти объекты будут удалены без возможности восстанловления"),  buttons: [
-                    .default(Text("Удалить")) { //NOT WORKING! DANGER ZONE!
-                        for item in deletedItems{
-                        if item.isOnDeleted == true{
-                            viewContext.delete(item)
-                        }
-                        }
-                        do {
-                            try viewContext.save()
-                        } catch {
-                            print(error.localizedDescription)
-                        }
-                        updateArray()
-                    },
-                    .cancel()
-                ])
-            }
-    }
-    func updateArray(){
-        fetchedItemsForDeleting = deletedItems.filter{$0.isOnDeleted == true}.sorted(by: {$0.creationDate! < $1.creationDate!})
+
     }
 }

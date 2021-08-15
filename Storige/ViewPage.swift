@@ -35,13 +35,6 @@ struct ViewPage: View{ // начало главной структуры
 	var body: some View // главный вью
 	{
 		NavigationView{// обертка для невигейшн вью начало
-			VStack{
-				Picker(selection: $selected, label: Text(""), content: {
-					Text("Название").tag(false)
-					Text("Журнальный номер").tag(true)
-				})
-				.pickerStyle(SegmentedPickerStyle())
-				.padding(.horizontal)
 			List{ // начало оформления списка
 				if searchText == "" {
 					ForEach(containers, id: \.self) { container in
@@ -92,8 +85,17 @@ struct ViewPage: View{ // начало главной структуры
 							  .swipeActions{Button("Удалить", role: .destructive){ withAnimation(.default, {viewContext.delete(Item); try?viewContext.save()})}}
 						  }
 				}
+			}// конец оформления списка
+			.keyboardToolbar(height: 50) {
+				Picker(selection: $selected, label: Text(""), content: {
+					Text("название").tag(false)
+					Text("журнальный номер").tag(true)
+				})
+					.pickerStyle(SegmentedPickerStyle())
+					.background()
+					.cornerRadius(7)
+					.padding(.horizontal)
 			}
-		}// конец оформления списка
 			.searchable(text: $searchText/*, placement: .navigationBarDrawer(displayMode: .always)*/)
 			.navigationBarTitle("Обзор", displayMode: .inline)
 			.navigationBarItems(trailing: Button(action: {activeSheet = .newItem}, label: {Text("Добавить")}))
@@ -107,7 +109,7 @@ struct ViewPage: View{ // начало главной структуры
 							updateArrays()
 						})
 				case .detailed: // обзор предмета
-					DetailedView()
+					DetailedView(uuid: uuidToPass)
 						.environment(\.managedObjectContext, self.viewContext)
 						.onDisappear(perform: {
 							for item in sortedItems{ if uuidToPass == item.itemid{ editItem(item: item) } }
@@ -115,6 +117,7 @@ struct ViewPage: View{ // начало главной структуры
 						})
 				}// свитч отслеживающий какой показывать - новый или обзор конец
 			} // конец шита с добавлением или обзором
+		
 		} // обертка для невигейшн вью конец
 		.onAppear{updateArrays()}
 		.onDisappear{updateArrays()}
@@ -122,8 +125,7 @@ struct ViewPage: View{ // начало главной структуры
 	}// конец главного вью
 
 	func updateArrays(){
-		fetchedItems = items.sorted(by: {$0.serialNum! < $1.serialNum!})
-		sortedItems = fetchedItems.filter{$0.isOnDeleted == false}
+		sortedItems = items.sorted(by: {$0.serialNum! < $1.serialNum!})
 	}
 
 	func editItem(item: Item) {
@@ -135,3 +137,28 @@ struct ViewPage: View{ // начало главной структуры
 		}
 	}
 } // конец главной структуры
+
+// its a stackoverflow answer copy paste construction for toolbar on keyboard when searchbar is used
+struct KeyboardToolbar<ToolbarView: View>: ViewModifier {
+	@Environment(\.isSearching) var isSearching
+	let height: CGFloat
+	let toolbarView: ToolbarView
+	init(height: CGFloat, @ViewBuilder toolbar: () -> ToolbarView) {
+		self.height = height
+		self.toolbarView = toolbar()
+	}
+	func body(content: Content) -> some View {
+		ZStack(alignment: .bottom) {
+			GeometryReader { geometry in
+				VStack { content }
+				.frame(width: geometry.size.width, height: geometry.size.height)
+			}
+			if isSearching { toolbarView.frame(height: self.height) }
+		} .frame(maxWidth: .infinity, maxHeight: .infinity)
+			
+	}
+}
+
+extension View {
+	func keyboardToolbar<ToolbarView>(height: CGFloat, view: @escaping () -> ToolbarView) -> some View where ToolbarView: View { modifier(KeyboardToolbar(height: height, toolbar: view)) }
+}

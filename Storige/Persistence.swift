@@ -19,7 +19,6 @@ struct PersistenceController {
             newItem.serialNum = String()
             newItem.itemid = UUID()
             newItem.creationDate = Date()
-            newItem.isOnDeleted = Bool()
             newItem.journalNum = String()
         }
         do {

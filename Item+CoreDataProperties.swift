@@ -15,7 +15,6 @@ extension Item {
     }
     @NSManaged public var amount: Int64
     @NSManaged public var creationDate: Date?
-    @NSManaged public var isOnDeleted: Bool
     @NSManaged public var itemid: UUID?
     @NSManaged public var journalNum: String?
     @NSManaged public var serialNum: String?
